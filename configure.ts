@@ -22,13 +22,13 @@ export async function configure(command: ConfigureCommand) {
    * Define the configuration file
    */
   await codemods.makeUsingStub(stubsRoot, 'config/respond_with.stub', {
-    packageName: command.name,
+    packageName: '@thisismissem/adonisjs-respond-with',
   })
 
   /**
    * Register provider
    */
   await codemods.updateRcFile((rcFile) => {
-    rcFile.addProvider(`${command.name}/respond_with`)
+    rcFile.addProvider(`@thisismissem/adonisjs-respond-with/providers/respond_with`)
   })
 }

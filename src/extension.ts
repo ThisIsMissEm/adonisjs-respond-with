@@ -4,6 +4,10 @@ import type { ResponseMatchers, RespondWithOptions, MatcherResponse } from './ty
 declare module '@adonisjs/core/http' {
   interface Request {
     respondWith(matchers: ResponseMatchers): MatcherResponse
+    respondWith(
+      matchers: ResponseMatchers,
+      options: { defaultType?: Exclude<keyof ResponseMatchers, number> }
+    ): MatcherResponse
   }
 }
 
@@ -16,6 +20,7 @@ Request.macro(
   ) {
     const defaultOptions: RespondWithOptions =
       (await this.ctx?.containerResolver.make('respondWith')) ?? {}
+    const additionalTypes = defaultOptions.additionalTypes ?? []
 
     // This allows users to define custom named content-types.
     //
@@ -24,10 +29,10 @@ Request.macro(
     const mappedTypes: Record<string, string> = {}
     const matchedTypes = Object.keys(matchers)
     const acceptedTypes = matchedTypes.map((type) => {
-      if (defaultOptions.additionalTypes[type]) {
+      if (additionalTypes[type]) {
         // allow the inverse mapping
-        mappedTypes[defaultOptions.additionalTypes[type]] = type
-        return defaultOptions.additionalTypes[type]
+        mappedTypes[additionalTypes[type]] = type
+        return additionalTypes[type]
       }
 
       return type
@@ -43,10 +48,18 @@ Request.macro(
         return await matchers[mappedTypes[bestMatch]]()
       }
     }
-    // Else, if we've a defaultType for the respondWith, and it's not an error
-    // response, execute it.
-    if (options?.defaultType && options.defaultType !== 'error') {
-      return await matchers[options.defaultType]()
+    // Else, if we've a defaultType for the respondWith, execute it.
+    if (options?.defaultType) {
+      if (typeof matchers[options.defaultType] === 'function') {
+        return await matchers[options.defaultType]()
+      }
+
+      if (options.defaultType === 'error') {
+        // Throw a 406 Unacceptable response, indicating the given content-type
+        // could not be handled, as the overridden defaultType was set to error,
+        // causing it to not cascade to the global defaultType handler
+        return this.response.writeHead(406, 'Unacceptable').end('406 Unacceptable')
+      }
     }
 
     // Else if we have a global defaultType, and it's not an error response, and

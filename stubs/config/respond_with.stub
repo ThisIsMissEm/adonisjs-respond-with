@@ -1,5 +1,5 @@
 {{{
-      exports({ to: app.configPath('respondWith.ts') })
+      exports({ to: app.configPath('respond_with.ts') })
 }}}
 
 import { defineConfig } from '{{packageName}}'
