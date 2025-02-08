@@ -1,7 +1,7 @@
 import { IgnitorFactory } from '@adonisjs/core/factories/core/ignitor'
 import { TestUtilsFactory } from '@adonisjs/core/factories/core/test_utils'
 
-export const BASE_URL = new URL('./tmp/', import.meta.url)
+export const BASE_URL = new URL('../tmp/', import.meta.url)
 export const IMPORTER = (filePath: string) => {
   if (filePath.startsWith('./') || filePath.startsWith('../')) {
     return import(new URL(filePath, BASE_URL).href)
