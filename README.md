@@ -38,7 +38,7 @@ export default class ExampleController {
       case 'json':
         return response.json({
           example: true,
-        }),
+        })
       case 'html':
         return view.render('pages/example')
       default:
