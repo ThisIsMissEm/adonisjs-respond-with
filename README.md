@@ -12,14 +12,32 @@ This package extends the Request class to add a respondWith method, which takes 
 export default class ExampleController {
   async show({ request, response, view }: HttpContext) {
     request.respondWith({
-      html(): view.render('pages/example'),
-      json(): response.json({
+      html: () => view.render('pages/example'),
+      json: () => response.json({
         example: true,
       }),
     })
   }
 }
 ```
+
+Or with short-hand using [object literal concise method syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#syntax):
+
+```typescript
+export default class ExampleController {
+  async show({ request, response, view }: HttpContext) {
+    request.respondWith({
+      html() { view.render('pages/example') },
+      json() {
+        response.json({
+          example: true,
+        })
+      },
+    })
+  }
+}
+```
+
 
 This package gives:
 
