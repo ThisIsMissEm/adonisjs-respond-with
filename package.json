@@ -5,6 +5,7 @@
   "engines": {
     "node": ">=20.6.0"
   },
+  "main": "./build/index.js",
   "type": "module",
   "files": [
     "build/",
