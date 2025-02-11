@@ -9,7 +9,9 @@
   "type": "module",
   "files": [
     "build/",
-    "build/stubs"
+    "build/stubs",
+    "!build/bin",
+    "!build/tests"
   ],
   "exports": {
     ".": "./build/index.js",
