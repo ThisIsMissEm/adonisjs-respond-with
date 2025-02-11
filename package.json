@@ -1,6 +1,6 @@
 {
   "name": "@thisismissem/adonisjs-respond-with",
-  "description": "",
+  "description": "A small plugin for Adonis.js to make responding with different content-types easier.",
   "version": "0.0.0",
   "engines": {
     "node": ">=20.6.0"
@@ -61,7 +61,13 @@
   "peerDependencies": {
     "@adonisjs/core": "^6.2.0"
   },
-  "author": "Emelia Smith",
+  "contributors": [
+    {
+      "name": "Emelia Smith",
+      "url": "https://github.com/thisismissem"
+    }
+  ],
+  "repository": "github:thisismissem/adonisjs-respond-with",
   "license": "MIT",
   "keywords": [
     "adonisjs",

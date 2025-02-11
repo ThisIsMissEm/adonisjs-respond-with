@@ -2,4 +2,4 @@
 '@thisismissem/adonisjs-respond-with': patch
 ---
 
-Initial pre-release
+Prepare for initial release
