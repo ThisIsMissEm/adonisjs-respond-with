@@ -5,7 +5,7 @@ export default class RespondWithProvider {
   constructor(protected app: ApplicationService) {}
 
   async boot() {
-    await import('../src/extension')
+    await import('../src/extension.js')
   }
 
   register() {
