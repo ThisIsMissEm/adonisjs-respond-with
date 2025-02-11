@@ -50,7 +50,11 @@ test.group('Configure', (group) => {
     await assert.fileContains('config/respond_with.ts', [
       `import { defineConfig } from '@thisismissem/adonisjs-respond-with'`,
       `defaultType: 'error',`,
-      `additionalTypes: {}`,
+      `additionalTypes: {},`,
     ])
+
+    // verify no additional whitespace exists:
+    const contents = await assert.fs.contents('config/respond_with.ts')
+    await assert.fileEquals('config/respond_with.ts', contents.trim(), 'Ensure no extra whitespace')
   })
 })

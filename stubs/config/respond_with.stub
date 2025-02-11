@@ -1,10 +1,9 @@
 {{{
       exports({ to: app.configPath('respond_with.ts') })
 }}}
-
 import { defineConfig } from '{{packageName}}'
 
 export default defineConfig({
   defaultType: 'error',
-  additionalTypes: {}
+  additionalTypes: {},
 })
