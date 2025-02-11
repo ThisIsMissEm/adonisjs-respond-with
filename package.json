@@ -14,7 +14,7 @@
   "exports": {
     ".": "./build/index.js",
     "./types": "./build/src/types.js",
-    "./respond_with": "./build/providers/respond_with.js"
+    "./provider": "./build/providers/respond_with.js"
   },
   "scripts": {
     "clean": "del-cli build",

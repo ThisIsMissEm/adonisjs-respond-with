@@ -40,10 +40,7 @@ test.group('Configure', (group) => {
     const command = await ace.create(Configure, ['../index.ts'])
     await command.exec()
 
-    await assert.fileContains(
-      'adonisrc.ts',
-      '@thisismissem/adonisjs-respond-with/providers/respond_with'
-    )
+    await assert.fileContains('adonisrc.ts', '@thisismissem/adonisjs-respond-with/provider')
 
     await assert.fileExists('config/respond_with.ts')
 
