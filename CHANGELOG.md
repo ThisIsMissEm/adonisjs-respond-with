@@ -1,5 +1,15 @@
 # @thisismissem/adonisjs-respond-with
 
+## 1.0.1
+
+### Patch Changes
+
+- [#16](https://github.com/ThisIsMissEm/adonisjs-respond-with/pull/16) [`16aea41`](https://github.com/ThisIsMissEm/adonisjs-respond-with/commit/16aea41629f6f1ffae7ef5b39a8caf51b944e0b7) Thanks [@ThisIsMissEm](https://github.com/ThisIsMissEm)! - Fix issue with provider export not being found
+
+- [#15](https://github.com/ThisIsMissEm/adonisjs-respond-with/pull/15) [`223a0f5`](https://github.com/ThisIsMissEm/adonisjs-respond-with/commit/223a0f5fbde523a19c98b5639a81a131e4cbace2) Thanks [@ThisIsMissEm](https://github.com/ThisIsMissEm)! - Fix issue with config file containing additional whitespace
+
+- [#13](https://github.com/ThisIsMissEm/adonisjs-respond-with/pull/13) [`0a03241`](https://github.com/ThisIsMissEm/adonisjs-respond-with/commit/0a032414426f35921b2f9f32b1ce6b6ebc501b29) Thanks [@ThisIsMissEm](https://github.com/ThisIsMissEm)! - Remove unnecessary files from package releases
+
 ## 1.0.0
 
 ### Major Changes
