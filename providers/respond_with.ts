@@ -1,5 +1,5 @@
 import { ApplicationService } from '@adonisjs/core/types'
-import { RespondWithOptions } from '../src/types.js'
+import { RespondWithOptions } from '../src/types'
 
 export default class RespondWithProvider {
   constructor(protected app: ApplicationService) {}

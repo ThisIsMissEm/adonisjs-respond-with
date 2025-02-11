@@ -1,5 +1,5 @@
 import { Request } from '@adonisjs/core/http'
-import type { ResponseMatchers, RespondWithOptions, MatcherResponse } from './types.js'
+import type { ResponseMatchers, RespondWithOptions, MatcherResponse } from './types'
 
 declare module '@adonisjs/core/http' {
   interface Request {

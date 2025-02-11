@@ -1,5 +1,5 @@
 import { InvalidArgumentsException } from '@adonisjs/core/exceptions'
-import type { RespondWithOptions } from './types.js'
+import type { RespondWithOptions } from './types'
 
 /**
  * Define the config for respondWith

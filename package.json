@@ -5,6 +5,7 @@
   "engines": {
     "node": ">=20.6.0"
   },
+  "main": "./build/index.js",
   "type": "module",
   "files": [
     "build/",
@@ -18,60 +19,57 @@
   "scripts": {
     "clean": "del-cli build",
     "copy:templates": "copyfiles \"stubs/**/*.stub\" build",
+    "check-exports": "attw --pack . --profile esm-only --ignore-rules=cjs-resolves-to-esm",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext=.ts",
-    "format": "prettier --write .",
+    "lint": "eslint '**/*.ts'",
+    "format": "prettier --ignore-path .gitignore --write .",
     "quick:test": "node --import=./tsnode.esm.js --enable-source-maps bin/test.ts",
     "pretest": "npm run lint",
     "test": "c8 npm run quick:test",
     "prebuild": "npm run lint && npm run clean",
     "build": "tsc",
     "postbuild": "npm run copy:templates",
-    "release": "np",
-    "version": "npm run build",
+    "prettier:write": "prettier --ignore-path .gitignore --write",
+    "version-packages": "changeset version && npm run prettier:write CHANGELOG.md && git add package.json CHANGELOG.md",
+    "release": "npm run build && changeset publish",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@adonisjs/assembler": "^7.7.0",
     "@adonisjs/core": "^6.12.0",
-    "@adonisjs/eslint-config": "^1.3.0",
-    "@adonisjs/prettier-config": "^1.3.0",
-    "@adonisjs/tsconfig": "^1.3.0",
-    "@japa/assert": "^3.0.0",
+    "@adonisjs/eslint-config": "^2.0.0-beta.7",
+    "@adonisjs/prettier-config": "^1.4.0",
+    "@adonisjs/tsconfig": "^1.4.0",
+    "@arethetypeswrong/cli": "^0.17.3",
+    "@changesets/cli": "^2.27.12",
+    "@japa/assert": "^4.0.1",
     "@japa/file-system": "^2.3.2",
-    "@japa/runner": "^3.1.4",
-    "@swc/core": "^1.6.3",
-    "@types/node": "^20.14.5",
+    "@japa/runner": "^4.2.0",
+    "@swc/core": "^1.10.15",
+    "@types/node": "^22.13.1",
     "@types/sinon": "^17.0.3",
-    "c8": "^10.1.2",
+    "c8": "^10.1.3",
     "copyfiles": "^2.4.1",
-    "del-cli": "^5.1.0",
-    "eslint": "^8.57.0",
-    "np": "^10.0.6",
-    "prettier": "^3.3.2",
+    "del-cli": "^6.0.0",
+    "eslint": "^9.20.1",
+    "prettier": "^3.5.0",
     "sinon": "^19.0.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.7.3"
   },
   "peerDependencies": {
     "@adonisjs/core": "^6.2.0"
   },
   "author": "Emelia Smith",
   "license": "MIT",
-  "keywords": [],
-  "eslintConfig": {
-    "extends": "@adonisjs/eslint-config/package"
-  },
+  "keywords": [
+    "adonisjs",
+    "content-negotiation"
+  ],
   "prettier": "@adonisjs/prettier-config",
   "publishConfig": {
     "access": "public",
     "tag": "latest"
-  },
-  "np": {
-    "message": "chore(release): %s",
-    "tag": "latest",
-    "branch": "main",
-    "anyBranch": false
   },
   "c8": {
     "reporter": [
