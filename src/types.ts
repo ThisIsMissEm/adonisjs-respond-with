@@ -17,9 +17,9 @@ export interface NegotiateOptions<MatcherNames> {
 declare module '@adonisjs/core/http' {
   interface Response {
     negotiate<T extends ResponseMatchers>(matchers: T): Promise<void>
-    negotiate<T extends ResponseMatchers, K extends keyof T>(
+    negotiate<T extends ResponseMatchers>(
       matchers: T,
-      options: NegotiateOptions<K>
+      options: NegotiateOptions<keyof T>
     ): Promise<void>
   }
 }
