@@ -13,8 +13,6 @@ Response.macro('negotiate', async function <
 
   const bestMatch = this.ctx!.request.accepts(acceptedTypes)
 
-  console.log({ bestMatch, acceptedTypes })
-
   // If we support the matched content-type is known, execute it:
   if (bestMatch && acceptedTypes.includes(bestMatch)) {
     const handlerName = negotiator.getHandlerFromContentType(bestMatch, matcherNames)
