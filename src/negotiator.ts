@@ -63,7 +63,7 @@ export class Negotiator {
 
   getHandlerFromContentType(contentType: string, matcherNames: string[]): string | undefined {
     const knownHandler = this.contentTypes.get(contentType)
-    if (knownHandler) {
+    if (typeof knownHandler === 'string') {
       return knownHandler
     } else if (matcherNames.includes(contentType)) {
       return contentType
