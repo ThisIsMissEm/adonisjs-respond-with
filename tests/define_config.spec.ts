@@ -7,78 +7,78 @@ test.group('defineConfig', () => {
     const config = defineConfig({})
 
     assert.deepEqual(config, {
-      defaultType: 'error',
-      additionalTypes: {},
+      defaultHandler: 'error',
+      mappings: {},
     })
   })
 
-  test('returns configuration with defaultType', ({ assert }) => {
+  test('returns configuration with defaultHandler', ({ assert }) => {
     const config = defineConfig({
-      defaultType: 'html',
+      defaultHandler: 'html',
     })
 
     assert.deepEqual(config, {
-      defaultType: 'html',
-      additionalTypes: {},
+      defaultHandler: 'html',
+      mappings: {},
     })
   })
 
-  test('returns configuration with additionalTypes', ({ assert }) => {
+  test('returns configuration with mappings', ({ assert }) => {
     const config = defineConfig({
-      additionalTypes: {
-        turbo: 'text/vnd.turbo-stream.html',
-      },
-    })
-
-    assert.deepEqual(config, {
-      defaultType: 'error',
-      additionalTypes: {
-        turbo: 'text/vnd.turbo-stream.html',
-      },
-    })
-  })
-
-  test('returns configuration with additionalTypes and defaultType', ({ assert }) => {
-    const config = defineConfig({
-      defaultType: 'test',
-      additionalTypes: {
+      mappings: {
         turbo: 'text/vnd.turbo-stream.html',
       },
     })
 
     assert.deepEqual(config, {
-      defaultType: 'test',
-      additionalTypes: {
+      defaultHandler: 'error',
+      mappings: {
         turbo: 'text/vnd.turbo-stream.html',
       },
     })
   })
 
-  test('throw an configuration error with additionalTypes containing "error" key', ({ assert }) => {
+  test('returns configuration with mappings and defaultHandler', ({ assert }) => {
+    const config = defineConfig({
+      defaultHandler: 'test',
+      mappings: {
+        turbo: 'text/vnd.turbo-stream.html',
+      },
+    })
+
+    assert.deepEqual(config, {
+      defaultHandler: 'test',
+      mappings: {
+        turbo: 'text/vnd.turbo-stream.html',
+      },
+    })
+  })
+
+  test('throw an configuration error with mappings containing "error" key', ({ assert }) => {
     assert.throws(() => {
       defineConfig({
-        additionalTypes: {
+        mappings: {
           error: 'this/should.not.be.allowed',
         },
       })
-    }, 'The "additionalTypes" property cannot contain "error" as a key, as this is a reserved type')
+    }, 'The "mappings" property cannot contain "error" as a key, as this is a reserved type')
   })
 
-  test('does not throw a configuration error with empty additionalTypes', ({ assert }) => {
+  test('does not throw a configuration error with empty mappings', ({ assert }) => {
     assert.doesNotThrow(() => {
       defineConfig({
-        additionalTypes: {},
+        mappings: {},
       })
     })
   })
 
-  test('throw a configuration error with additionalTypes as an array', ({ assert }) => {
+  test('throw a configuration error with mappings as an array', ({ assert }) => {
     assert.throws(() => {
       defineConfig({
         // @ts-expect-error
-        additionalTypes: [],
+        mappings: [],
       })
-    }, 'The "additionalTypes" property must be an object if defined')
+    }, 'The "mappings" property must be an object if defined')
   })
 
   test('throw a configuration error with empty config', ({ assert }) => {

@@ -58,7 +58,8 @@
     "prettier": "^3.5.0",
     "sinon": "^19.0.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "yalc": "^1.0.0-pre.53"
   },
   "peerDependencies": {
     "@adonisjs/core": "^6.2.0"
@@ -88,5 +89,9 @@
     "exclude": [
       "tests/**"
     ]
+  },
+  "dependencies": {
+    "@types/mime-types": "^2.1.4",
+    "mime-types": "^2.1.35"
   }
 }
