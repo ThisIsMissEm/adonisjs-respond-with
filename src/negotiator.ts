@@ -1,6 +1,6 @@
 import * as mime from 'mime-types'
 
-import { RespondWithConfig } from './types'
+import { RespondWithConfig } from './types.js'
 
 export class Negotiator {
   private contentTypes: Map<string, string>

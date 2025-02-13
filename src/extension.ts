@@ -1,6 +1,6 @@
 import { Response } from '@adonisjs/core/http'
-import type { ResponseMatchers, NegotiateOptions } from './types'
-import type { Negotiator } from './negotiator'
+import type { ResponseMatchers, NegotiateOptions } from './types.js'
+import type { Negotiator } from './negotiator.js'
 import { RuntimeException } from '@adonisjs/core/exceptions'
 
 Response.macro('negotiate', async function <

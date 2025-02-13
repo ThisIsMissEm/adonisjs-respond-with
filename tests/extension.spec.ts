@@ -345,17 +345,17 @@ test.group('Request respondWith', () => {
 
     const ctx = await testUtils.createHttpContext()
 
-    ctx.request.request.headers['accept'] = 'application/api.v1+json, text/html'
+    ctx.request.request.headers['accept'] = 'application/api.v1+json, application/json'
 
     var jsonCallback = sinon.fake()
     var htmlCallback = sinon.fake()
 
     await ctx.response.negotiate({
       json(contentType) {
-        return jsonCallback(contentType)
+        jsonCallback(contentType)
       },
       html() {
-        return htmlCallback()
+        htmlCallback()
       },
     })
 

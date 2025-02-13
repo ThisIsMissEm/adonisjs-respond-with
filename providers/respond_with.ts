@@ -1,19 +1,6 @@
 import { ApplicationService } from '@adonisjs/core/types'
-import { NegotiateOptions, RespondWithConfig, ResponseMatchers } from '../src/types'
-import { Negotiator } from '../src/negotiator'
-
-declare module '@adonisjs/core/http' {
-  interface Response {
-    negotiate<T extends ResponseMatchers>(matchers: T): Promise<void>
-    negotiate<T extends ResponseMatchers>(matchers: T, options: NegotiateOptions<T>): Promise<void>
-  }
-}
-
-declare module '@adonisjs/core/types' {
-  export interface ContainerBindings {
-    'respondWith.negotiator': Negotiator
-  }
-}
+import type { RespondWithConfig } from '../src/types.js'
+import { Negotiator } from '../src/negotiator.js'
 
 export default class RespondWithProvider {
   constructor(protected app: ApplicationService) {}

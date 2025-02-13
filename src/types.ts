@@ -1,3 +1,5 @@
+import type { Negotiator } from './negotiator.js'
+
 export interface RespondWithConfig {
   defaultHandler: string | 'error'
   mappings: {
@@ -8,7 +10,22 @@ export interface RespondWithConfig {
 export type Handler = (matchedType?: string) => Promise<void> | void
 export type ResponseMatchers = Record<string, Handler> & { error?: never }
 
-type RecordKeys<T> = keyof T & string
-export interface NegotiateOptions<T extends ResponseMatchers> {
-  defaultHandler?: RecordKeys<T> | 'error'
+export interface NegotiateOptions<MatcherNames> {
+  defaultHandler?: (MatcherNames & string) | 'error'
+}
+
+declare module '@adonisjs/core/http' {
+  interface Response {
+    negotiate<T extends ResponseMatchers>(matchers: T): Promise<void>
+    negotiate<T extends ResponseMatchers, K extends keyof T>(
+      matchers: T,
+      options: NegotiateOptions<K>
+    ): Promise<void>
+  }
+}
+
+declare module '@adonisjs/core/types' {
+  export interface ContainerBindings {
+    'respondWith.negotiator': Negotiator
+  }
 }
