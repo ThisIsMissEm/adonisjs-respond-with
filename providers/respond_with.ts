@@ -1,7 +1,5 @@
 import { ApplicationService } from '@adonisjs/core/types'
 import { RespondWithConfig } from '../src/types'
-import { RuntimeException } from '@adonisjs/core/exceptions'
-import { configProvider } from '@adonisjs/core'
 import { Negotiator } from '../src/negotiator.js'
 
 export default class RespondWithProvider {
