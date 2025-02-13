@@ -4,6 +4,6 @@
 import { defineConfig } from '{{packageName}}'
 
 export default defineConfig({
-  defaultType: 'error',
-  additionalTypes: {},
+  defaultHandler: 'error',
+  mappings: {},
 })

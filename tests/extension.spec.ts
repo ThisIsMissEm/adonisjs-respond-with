@@ -2,6 +2,7 @@ import { test } from '@japa/runner'
 import sinon from 'sinon'
 
 import { setupApp } from './helpers.js'
+import { defineConfig } from '../src/define_config.js'
 
 test.group('Request respondWith', () => {
   test('with known handler', async ({ assert }) => {
@@ -17,7 +18,7 @@ test.group('Request respondWith', () => {
 
     var callback = sinon.fake()
 
-    await ctx.request.respondWith({
+    await ctx.response.negotiate({
       json: () => {
         return callback()
       },
@@ -39,7 +40,8 @@ test.group('Request respondWith', () => {
 
     var callback = sinon.fake()
 
-    await ctx.request.respondWith({
+    await ctx.response.negotiate({
+      // not html:
       json: () => {
         return callback()
       },
@@ -57,12 +59,12 @@ test.group('Request respondWith', () => {
         providers: () => import('../providers/respond_with.js'),
       },
       config: {
-        respondWith: {
-          additionalTypes: {
+        respondWith: defineConfig({
+          mappings: {
             // Explicitly not setting this:
-            // turbo: 'text/vnd.turbo-stream.html',
+            // 'text/vnd.turbo-stream.html': 'turbo',
           },
-        },
+        }),
       },
     })
 
@@ -72,7 +74,7 @@ test.group('Request respondWith', () => {
 
     var turboCallback = sinon.fake()
 
-    await ctx.request.respondWith({
+    await ctx.response.negotiate({
       turbo: () => {
         return turboCallback()
       },
@@ -88,11 +90,11 @@ test.group('Request respondWith', () => {
         providers: () => import('../providers/respond_with.js'),
       },
       config: {
-        respondWith: {
-          additionalTypes: {
-            turbo: 'text/vnd.turbo-stream.html',
+        respondWith: defineConfig({
+          mappings: {
+            'text/vnd.turbo-stream.html': 'turbo',
           },
-        },
+        }),
       },
     })
 
@@ -102,7 +104,7 @@ test.group('Request respondWith', () => {
 
     var callback = sinon.fake()
 
-    await ctx.request.respondWith({
+    await ctx.response.negotiate({
       turbo: () => {
         return callback()
       },
@@ -117,11 +119,11 @@ test.group('Request respondWith', () => {
         providers: () => import('../providers/respond_with.js'),
       },
       config: {
-        respondWith: {
-          additionalTypes: {
-            turbo: 'text/vnd.turbo-stream.html',
+        respondWith: defineConfig({
+          mappings: {
+            'text/vnd.turbo-stream.html': 'turbo',
           },
-        },
+        }),
       },
     })
 
@@ -131,7 +133,7 @@ test.group('Request respondWith', () => {
 
     var callback = sinon.fake()
 
-    await ctx.request.respondWith({
+    await ctx.response.negotiate({
       html: () => {
         return callback()
       },
@@ -142,15 +144,91 @@ test.group('Request respondWith', () => {
     assert.equal(ctx.response.getStatus(), 406, 'Should return 406 unprocessable')
   })
 
+  test('Additional types with multiple registered type mappings', async ({ assert }) => {
+    const { testUtils } = await setupApp({
+      rcFileContents: {
+        providers: () => import('../providers/respond_with.js'),
+      },
+      config: {
+        respondWith: defineConfig({
+          mappings: {
+            'application/api.v1+json': 'json',
+            'application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"': 'json',
+          },
+        }),
+      },
+    })
+
+    const ctx = await testUtils.createHttpContext()
+
+    ctx.request.request.headers['accept'] = 'application/api.v1+json'
+
+    var jsonCallback = sinon.fake()
+    var htmlCallback = sinon.fake()
+
+    await ctx.response.negotiate({
+      json(contentType) {
+        return jsonCallback(contentType)
+      },
+      html() {
+        return htmlCallback()
+      },
+    })
+
+    assert.isTrue(jsonCallback.calledOnce, 'Invoked the json handler for a json-ld request')
+    assert.equal(
+      jsonCallback.firstCall.args[0],
+      'application/api.v1+json',
+      'Passes the matched content-type to the handler'
+    )
+    assert.equal(htmlCallback.callCount, 0, 'Should not invoke the html handler')
+  })
+
+  test('Additional types with multiple registered type mappings overriding default type', async ({
+    assert,
+  }) => {
+    const { testUtils } = await setupApp({
+      rcFileContents: {
+        providers: () => import('../providers/respond_with.js'),
+      },
+      config: {
+        respondWith: defineConfig({
+          mappings: {
+            'application/ld+json': 'json',
+          },
+        }),
+      },
+    })
+
+    const ctx = await testUtils.createHttpContext()
+
+    ctx.request.request.headers['accept'] = 'application/json'
+
+    var jsonCallback = sinon.fake()
+    var htmlCallback = sinon.fake()
+
+    await ctx.response.negotiate({
+      json() {
+        return jsonCallback()
+      },
+      html() {
+        return htmlCallback()
+      },
+    })
+
+    assert.isTrue(jsonCallback.calledOnce, 'Invoked the json handler for a json-ld request')
+    assert.equal(htmlCallback.callCount, 0, 'Should not invoke the html handler')
+  })
+
   test('default type responders with global default', async ({ assert }) => {
     const { testUtils } = await setupApp({
       rcFileContents: {
         providers: () => import('../providers/respond_with.js'),
       },
       config: {
-        respondWith: {
-          defaultType: 'html',
-        },
+        respondWith: defineConfig({
+          defaultHandler: 'html',
+        }),
       },
     })
 
@@ -160,7 +238,7 @@ test.group('Request respondWith', () => {
 
     var callback = sinon.fake()
 
-    await ctx.request.respondWith({
+    await ctx.response.negotiate({
       html: () => {
         ctx.response.status(200)
         return callback()
@@ -182,9 +260,9 @@ test.group('Request respondWith', () => {
         providers: () => import('../providers/respond_with.js'),
       },
       config: {
-        respondWith: {
-          defaultType: 'xml',
-        },
+        respondWith: defineConfig({
+          defaultHandler: 'xml',
+        }),
       },
     })
 
@@ -195,7 +273,7 @@ test.group('Request respondWith', () => {
     var htmlCallback = sinon.fake()
     var xmlCallback = sinon.fake()
 
-    await ctx.request.respondWith(
+    await ctx.response.negotiate(
       {
         html: () => {
           ctx.response.status(200)
@@ -206,7 +284,7 @@ test.group('Request respondWith', () => {
         },
         // explicitly no `json` handler
       },
-      { defaultType: 'html' }
+      { defaultHandler: 'html' }
     )
 
     assert.equal(
@@ -224,9 +302,9 @@ test.group('Request respondWith', () => {
         providers: () => import('../providers/respond_with.js'),
       },
       config: {
-        respondWith: {
-          defaultType: 'html',
-        },
+        respondWith: defineConfig({
+          defaultHandler: 'html',
+        }),
       },
     })
 
@@ -236,7 +314,7 @@ test.group('Request respondWith', () => {
 
     var htmlCallback = sinon.fake()
 
-    await ctx.request.respondWith(
+    await ctx.response.negotiate(
       {
         html: () => {
           ctx.response.status(200)
@@ -244,10 +322,49 @@ test.group('Request respondWith', () => {
         },
         // explicitly no `json` handler
       },
-      { defaultType: 'error' }
+      { defaultHandler: 'error' }
     )
 
     assert.equal(htmlCallback.callCount, 0, 'Should not invoke the global default handler')
     assert.equal(ctx.response.getStatus(), 406, 'Should return 406 unacceptable')
+  })
+
+  test('Multiple Accepts values', async ({ assert }) => {
+    const { testUtils } = await setupApp({
+      rcFileContents: {
+        providers: () => import('../providers/respond_with.js'),
+      },
+      config: {
+        respondWith: defineConfig({
+          mappings: {
+            'application/api.v1+json': 'json',
+          },
+        }),
+      },
+    })
+
+    const ctx = await testUtils.createHttpContext()
+
+    ctx.request.request.headers['accept'] = 'application/api.v1+json, application/json'
+
+    var jsonCallback = sinon.fake()
+    var htmlCallback = sinon.fake()
+
+    await ctx.response.negotiate({
+      json(contentType) {
+        jsonCallback(contentType)
+      },
+      html() {
+        htmlCallback()
+      },
+    })
+
+    assert.isTrue(jsonCallback.calledOnce, 'Invoked the json handler for a json-ld request')
+    assert.equal(
+      jsonCallback.firstCall.args[0],
+      'application/api.v1+json',
+      'Passes the matched content-type to the handler'
+    )
+    assert.equal(htmlCallback.callCount, 0, 'Should not invoke the html handler')
   })
 })

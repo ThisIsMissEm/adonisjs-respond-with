@@ -1,79 +1,61 @@
-import { Request } from '@adonisjs/core/http'
-import type { ResponseMatchers, RespondWithOptions, MatcherResponse } from './types'
+import { Response } from '@adonisjs/core/http'
+import type { ResponseMatchers, NegotiateOptions } from './types.js'
+import type { Negotiator } from './negotiator.js'
+import { RuntimeException } from '@adonisjs/core/exceptions'
 
-declare module '@adonisjs/core/http' {
-  interface Request {
-    respondWith(matchers: ResponseMatchers): MatcherResponse
-    respondWith(
-      matchers: ResponseMatchers,
-      options: { defaultType?: Exclude<keyof ResponseMatchers, number> }
-    ): MatcherResponse
+Response.macro('negotiate', async function <
+  T extends ResponseMatchers,
+>(this: Response, matchers: T, options?: NegotiateOptions<T>): Promise<void> {
+  const negotiator: Negotiator = await this.ctx!.containerResolver.make('respondWith.negotiator')
+
+  const matcherNames = Object.keys(matchers)
+  const acceptedTypes = negotiator.getAcceptedTypes(matcherNames)
+
+  const bestMatch = this.ctx!.request.accepts(acceptedTypes)
+
+  // If we support the matched content-type is known, execute it:
+  if (bestMatch && acceptedTypes.includes(bestMatch)) {
+    const handlerName = negotiator.getHandlerFromContentType(bestMatch, matcherNames)
+
+    if (typeof handlerName === 'string' && typeof matchers[handlerName] === 'function') {
+      await matchers[handlerName](bestMatch)
+      return
+    }
   }
-}
 
-Request.macro(
-  'respondWith',
-  async function (
-    this: Request,
-    matchers: ResponseMatchers,
-    options?: { defaultType?: Exclude<keyof ResponseMatchers, number> }
-  ) {
-    const defaultOptions: RespondWithOptions =
-      (await this.ctx?.containerResolver.make('respondWith')) ?? {}
-    const additionalTypes = defaultOptions.additionalTypes ?? []
-
-    // This allows users to define custom named content-types.
-    //
-    // `turbo() => turbo.append()` but the turbo type isn't known to accepts(), so
-    // we need to remap it from `turbo` to `text/vnd.turbo-stream.html`
-    const mappedTypes: Record<string, string> = {}
-    const matchedTypes = Object.keys(matchers)
-    const acceptedTypes = matchedTypes.map((type) => {
-      if (additionalTypes[type]) {
-        // allow the inverse mapping
-        mappedTypes[additionalTypes[type]] = type
-        return additionalTypes[type]
-      }
-
-      return type
-    })
-
-    const bestMatch = this.accepts(acceptedTypes)
-
-    // If we support the matched content-type is known, execute it:
-    if (bestMatch && acceptedTypes.includes(bestMatch)) {
-      if (typeof matchers[bestMatch] === 'function') {
-        return await matchers[bestMatch]()
-      } else if (mappedTypes[bestMatch] && typeof matchers[mappedTypes[bestMatch]]) {
-        return await matchers[mappedTypes[bestMatch]]()
-      }
-    }
-    // Else, if we've a defaultType for the respondWith, execute it.
-    if (options?.defaultType) {
-      if (typeof matchers[options.defaultType] === 'function') {
-        return await matchers[options.defaultType]()
-      }
-
-      if (options.defaultType === 'error') {
-        // Throw a 406 Unacceptable response, indicating the given content-type
-        // could not be handled, as the overridden defaultType was set to error,
-        // causing it to not cascade to the global defaultType handler
-        return this.response.writeHead(406, 'Unacceptable').end('406 Unacceptable')
-      }
+  // Else, if we've a defaultType for the respondWith, execute it.
+  if (options?.defaultHandler) {
+    if (options.defaultHandler === 'error') {
+      // Throw a 406 Unacceptable response, indicating the given content-type
+      // could not be handled, as the overridden defaultHandler was set to error,
+      // causing it to not cascade to the global defaultHandler handler
+      // this.response.writeHead(406, 'Unacceptable').end('406 Unacceptable')
+      this.notAcceptable()
+      return
     }
 
-    // Else if we have a global defaultType, and it's not an error response, and
-    // we have a supported matcher for the default type, execute it.
-    if (
-      defaultOptions.defaultType &&
-      defaultOptions.defaultType !== 'error' &&
-      typeof matchers[defaultOptions.defaultType] === 'function'
-    ) {
-      return await matchers[defaultOptions.defaultType]()
+    if (typeof matchers[options.defaultHandler] === 'function') {
+      await matchers[options.defaultHandler]()
+      return
+      // The else branch here can only ever happen if someone's completely
+      // ignored the typechecking, hence not covering it:
+      /* c8 ignore next 5 */
+    } else {
+      throw new RuntimeException(
+        `Could not find handler for response.negotiate when using default: ${options.defaultHandler}`
+      )
     }
-
-    // Finally through a 406 Unacceptable response, indicating the given
-    // content-type could not be handled.
-    this.response.writeHead(406, 'Unacceptable').end('406 Unacceptable')
   }
-)
+
+  // Else if we have a global defaultHandler, and it's not an error response, and
+  // we have a supported matcher for the default type, execute it.
+  const defaultHandler = negotiator.getDefaultHandler()
+  if (defaultHandler !== 'error' && typeof matchers[defaultHandler] === 'function') {
+    await matchers[defaultHandler]()
+    return
+  }
+
+  // Finally through a 406 Unacceptable response, indicating the given
+  // content-type could not be handled.
+  this.notAcceptable()
+})

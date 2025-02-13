@@ -1,28 +1,26 @@
 import { InvalidArgumentsException } from '@adonisjs/core/exceptions'
-import type { RespondWithOptions } from './types'
+import type { RespondWithConfig } from './types.js'
 
 /**
  * Define the config for respondWith
  */
-export function defineConfig(config: Partial<RespondWithOptions>): RespondWithOptions {
-  if (Object.hasOwnProperty.call(config, 'additionalTypes')) {
-    if (typeof config.additionalTypes !== 'object' || Array.isArray(config.additionalTypes)) {
-      throw new InvalidArgumentsException(
-        'The "additionalTypes" property must be an object if defined'
-      )
+export function defineConfig(config: Partial<RespondWithConfig>): RespondWithConfig {
+  if (Object.hasOwnProperty.call(config, 'mappings')) {
+    if (typeof config.mappings !== 'object' || Array.isArray(config.mappings)) {
+      throw new InvalidArgumentsException('The "mappings" property must be an object if defined')
     }
 
-    if (Object.hasOwnProperty.call(config.additionalTypes, 'error')) {
+    if (Object.hasOwnProperty.call(config.mappings, 'error')) {
       throw new InvalidArgumentsException(
-        'The "additionalTypes" property cannot contain "error" as a key, as this is a reserved type'
+        'The "mappings" property cannot contain "error" as a key, as this is a reserved type'
       )
     }
   }
 
   return {
-    defaultType: config.defaultType ?? 'error',
-    additionalTypes: {
-      ...config.additionalTypes,
+    defaultHandler: config.defaultHandler ?? 'error',
+    mappings: {
+      ...config.mappings,
     },
   }
 }
