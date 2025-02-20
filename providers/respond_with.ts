@@ -10,13 +10,15 @@ export default class RespondWithProvider {
   }
 
   register() {
-    this.app.container.singleton('respondWith.negotiator', async () => {
-      const config = this.app.config.get<RespondWithConfig>('respondWith', {
+    this.app.container.singleton(Negotiator, async () => {
+      const config = this.app.config.get<RespondWithConfig>('respond_with', {
         defaultHandler: 'error',
         mappings: {},
       })
 
       return new Negotiator(config)
     })
+
+    this.app.container.alias('respondWith.negotiator', Negotiator)
   }
 }

@@ -4,7 +4,7 @@ import sinon from 'sinon'
 import { setupApp } from './helpers.js'
 import { defineConfig } from '../src/define_config.js'
 
-test.group('Request respondWith', () => {
+test.group('Request respond_with', () => {
   test('with known handler', async ({ assert }) => {
     const { testUtils } = await setupApp({
       rcFileContents: {
@@ -59,7 +59,7 @@ test.group('Request respondWith', () => {
         providers: () => import('../providers/respond_with.js'),
       },
       config: {
-        respondWith: defineConfig({
+        respond_with: defineConfig({
           mappings: {
             // Explicitly not setting this:
             // 'text/vnd.turbo-stream.html': 'turbo',
@@ -90,7 +90,7 @@ test.group('Request respondWith', () => {
         providers: () => import('../providers/respond_with.js'),
       },
       config: {
-        respondWith: defineConfig({
+        respond_with: defineConfig({
           mappings: {
             'text/vnd.turbo-stream.html': 'turbo',
           },
@@ -119,7 +119,7 @@ test.group('Request respondWith', () => {
         providers: () => import('../providers/respond_with.js'),
       },
       config: {
-        respondWith: defineConfig({
+        respond_with: defineConfig({
           mappings: {
             'text/vnd.turbo-stream.html': 'turbo',
           },
@@ -150,7 +150,7 @@ test.group('Request respondWith', () => {
         providers: () => import('../providers/respond_with.js'),
       },
       config: {
-        respondWith: defineConfig({
+        respond_with: defineConfig({
           mappings: {
             'application/api.v1+json': 'json',
             'application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"': 'json',
@@ -192,7 +192,7 @@ test.group('Request respondWith', () => {
         providers: () => import('../providers/respond_with.js'),
       },
       config: {
-        respondWith: defineConfig({
+        respond_with: defineConfig({
           mappings: {
             'application/ld+json': 'json',
           },
@@ -226,7 +226,7 @@ test.group('Request respondWith', () => {
         providers: () => import('../providers/respond_with.js'),
       },
       config: {
-        respondWith: defineConfig({
+        respond_with: defineConfig({
           defaultHandler: 'html',
         }),
       },
@@ -260,7 +260,7 @@ test.group('Request respondWith', () => {
         providers: () => import('../providers/respond_with.js'),
       },
       config: {
-        respondWith: defineConfig({
+        respond_with: defineConfig({
           defaultHandler: 'xml',
         }),
       },
@@ -302,7 +302,7 @@ test.group('Request respondWith', () => {
         providers: () => import('../providers/respond_with.js'),
       },
       config: {
-        respondWith: defineConfig({
+        respond_with: defineConfig({
           defaultHandler: 'html',
         }),
       },
@@ -335,7 +335,7 @@ test.group('Request respondWith', () => {
         providers: () => import('../providers/respond_with.js'),
       },
       config: {
-        respondWith: defineConfig({
+        respond_with: defineConfig({
           mappings: {
             'application/api.v1+json': 'json',
           },
