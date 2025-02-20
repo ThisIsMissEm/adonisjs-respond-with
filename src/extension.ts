@@ -1,17 +1,19 @@
 import { Response } from '@adonisjs/core/http'
 import type { ResponseMatchers, NegotiateOptions } from './types.js'
-import type { Negotiator } from './negotiator.js'
+import { Negotiator } from './negotiator.js'
 import { RuntimeException } from '@adonisjs/core/exceptions'
 
 Response.macro('negotiate', async function <
   T extends ResponseMatchers,
 >(this: Response, matchers: T, options?: NegotiateOptions<T>): Promise<void> {
-  const negotiator: Negotiator = await this.ctx!.containerResolver.make('respondWith.negotiator')
+  const negotiator: Negotiator = await this.ctx!.containerResolver.make(Negotiator)
 
   const matcherNames = Object.keys(matchers)
   const acceptedTypes = negotiator.getAcceptedTypes(matcherNames)
 
   const bestMatch = this.ctx!.request.accepts(acceptedTypes)
+
+  this.ctx?.logger.trace({ respondWith: { acceptedTypes, bestMatch, matchers: matcherNames } })
 
   // If we support the matched content-type is known, execute it:
   if (bestMatch && acceptedTypes.includes(bestMatch)) {
