@@ -13,7 +13,14 @@ Response.macro('negotiate', async function <
 
   const bestMatch = this.ctx!.request.accepts(acceptedTypes)
 
-  this.ctx?.logger.trace({ respondWith: { acceptedTypes, bestMatch, matchers: matcherNames } })
+  this.ctx?.logger.trace({
+    respondWith: {
+      acceptHeader: this.ctx!.request.header('accept'),
+      acceptedTypes,
+      bestMatch,
+      matchers: matcherNames,
+    },
+  })
 
   // If we support the matched content-type is known, execute it:
   if (bestMatch && acceptedTypes.includes(bestMatch)) {

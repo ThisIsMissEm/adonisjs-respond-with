@@ -51,6 +51,29 @@ test.group('Request respond_with', () => {
     assert.equal(ctx.response.getStatus(), 406, 'Should return 406 unprocessable')
   })
 
+  test('without Accept header', async ({ assert }) => {
+    const { testUtils } = await setupApp({
+      rcFileContents: {
+        providers: () => import('../providers/respond_with.js'),
+      },
+    })
+
+    const ctx = await testUtils.createHttpContext()
+
+    // Explicitly don't set ctx.request.request.headers['accept']
+
+    var callback = sinon.fake()
+
+    await ctx.response.negotiate({
+      json: () => {
+        return callback()
+      },
+    })
+
+    assert.equal(callback.callCount, 0, 'Did not invoke the json handler')
+    assert.equal(ctx.response.getStatus(), 406, 'Should return 406 unprocessable')
+  })
+
   test('Additional Types with unsupported type that would require an additional type', async ({
     assert,
   }) => {
@@ -345,7 +368,7 @@ test.group('Request respond_with', () => {
 
     const ctx = await testUtils.createHttpContext()
 
-    ctx.request.request.headers['accept'] = 'application/api.v1+json, application/json'
+    ctx.request.request.headers['accept'] = 'application/json, application/api.v1+json'
 
     var jsonCallback = sinon.fake()
     var htmlCallback = sinon.fake()
@@ -362,7 +385,7 @@ test.group('Request respond_with', () => {
     assert.isTrue(jsonCallback.calledOnce, 'Invoked the json handler for a json-ld request')
     assert.equal(
       jsonCallback.firstCall.args[0],
-      'application/api.v1+json',
+      'application/json',
       'Passes the matched content-type to the handler'
     )
     assert.equal(htmlCallback.callCount, 0, 'Should not invoke the html handler')
