@@ -1,5 +1,11 @@
 # @thisismissem/adonisjs-respond-with
 
+## 2.0.1
+
+### Patch Changes
+
+- [#22](https://github.com/ThisIsMissEm/adonisjs-respond-with/pull/22) [`6ae60cd`](https://github.com/ThisIsMissEm/adonisjs-respond-with/commit/6ae60cd59044ea3503ccfc335d747539bb85ffb7) Thanks [@ThisIsMissEm](https://github.com/ThisIsMissEm)! - Fix issue with missing Accept header triggering a random handler
+
 ## 2.0.0
 
 ### Major Changes
