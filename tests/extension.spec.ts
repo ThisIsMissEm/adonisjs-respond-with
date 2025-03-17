@@ -51,6 +51,29 @@ test.group('Request respond_with', () => {
     assert.equal(ctx.response.getStatus(), 406, 'Should return 406 unprocessable')
   })
 
+  test('without Accept header', async ({ assert }) => {
+    const { testUtils } = await setupApp({
+      rcFileContents: {
+        providers: () => import('../providers/respond_with.js'),
+      },
+    })
+
+    const ctx = await testUtils.createHttpContext()
+
+    // Explicitly don't set ctx.request.request.headers['accept']
+
+    var callback = sinon.fake()
+
+    await ctx.response.negotiate({
+      json: () => {
+        return callback()
+      },
+    })
+
+    assert.equal(callback.callCount, 0, 'Did not invoke the json handler')
+    assert.equal(ctx.response.getStatus(), 406, 'Should return 406 unprocessable')
+  })
+
   test('Additional Types with unsupported type that would require an additional type', async ({
     assert,
   }) => {

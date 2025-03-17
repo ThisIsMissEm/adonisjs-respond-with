@@ -49,7 +49,7 @@ export class Negotiator {
   }
 
   getAcceptedTypes(matcherNames: string[]): string[] {
-    const acceptedTypes: string[] = []
+    const acceptedTypes: string[] = ['*/*']
     for (const name of matcherNames) {
       const handlerContentTypes = this.handlerTypes.get(name)
       if (handlerContentTypes) {
