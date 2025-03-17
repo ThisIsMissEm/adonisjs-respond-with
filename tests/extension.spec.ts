@@ -368,7 +368,7 @@ test.group('Request respond_with', () => {
 
     const ctx = await testUtils.createHttpContext()
 
-    ctx.request.request.headers['accept'] = 'application/api.v1+json, application/json'
+    ctx.request.request.headers['accept'] = 'application/json, application/api.v1+json'
 
     var jsonCallback = sinon.fake()
     var htmlCallback = sinon.fake()
@@ -385,7 +385,7 @@ test.group('Request respond_with', () => {
     assert.isTrue(jsonCallback.calledOnce, 'Invoked the json handler for a json-ld request')
     assert.equal(
       jsonCallback.firstCall.args[0],
-      'application/api.v1+json',
+      'application/json',
       'Passes the matched content-type to the handler'
     )
     assert.equal(htmlCallback.callCount, 0, 'Should not invoke the html handler')
