@@ -27,8 +27,7 @@ Response.macro('negotiate', async function <
     const handlerName = negotiator.getHandlerFromContentType(bestMatch, matcherNames)
 
     if (typeof handlerName === 'string' && typeof matchers[handlerName] === 'function') {
-      await matchers[handlerName](bestMatch)
-      return
+      return await matchers[handlerName](bestMatch)
     }
   }
 
@@ -39,13 +38,11 @@ Response.macro('negotiate', async function <
       // could not be handled, as the overridden defaultHandler was set to error,
       // causing it to not cascade to the global defaultHandler handler
       // this.response.writeHead(406, 'Unacceptable').end('406 Unacceptable')
-      this.notAcceptable()
-      return
+      return this.notAcceptable()
     }
 
     if (typeof matchers[options.defaultHandler] === 'function') {
-      await matchers[options.defaultHandler]()
-      return
+      return await matchers[options.defaultHandler]()
       // The else branch here can only ever happen if someone's completely
       // ignored the typechecking, hence not covering it:
       /* c8 ignore next 5 */
@@ -60,11 +57,10 @@ Response.macro('negotiate', async function <
   // we have a supported matcher for the default type, execute it.
   const defaultHandler = negotiator.getDefaultHandler()
   if (defaultHandler !== 'error' && typeof matchers[defaultHandler] === 'function') {
-    await matchers[defaultHandler]()
-    return
+    return await matchers[defaultHandler]()
   }
 
   // Finally through a 406 Unacceptable response, indicating the given
   // content-type could not be handled.
-  this.notAcceptable()
+  return this.notAcceptable()
 })
