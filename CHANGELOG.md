@@ -1,5 +1,34 @@
 # @thisismissem/adonisjs-respond-with
 
+## 2.1.0
+
+### Minor Changes
+
+- [#25](https://github.com/ThisIsMissEm/adonisjs-respond-with/pull/25) [`65474fe`](https://github.com/ThisIsMissEm/adonisjs-respond-with/commit/65474fe66c30493cfcc7c692dc232fce4c349bd0) Thanks [@ThisIsMissEm](https://github.com/ThisIsMissEm)! - Support return the response from the handler function
+
+  We've now added the ability to have the response from the handler pass through the negotiate method, allowing for better integration when working with views from Edge.js
+
+  For example, we can now do:
+
+  ```typescript
+  export default class TestController {
+    async index({ response, view }: HttpContext) {
+      return response.negotiate(
+        {
+          json() {
+            response.json({ test: 'ok' })
+          },
+          html() {
+            return view.render('test/index')
+          },
+        },
+        { defaultHandler: 'html' }
+      )
+    }
+  ```
+
+  When previously this would raise a typescript error, as noted in [#24](https://github.com/ThisIsMissEm/adonisjs-respond-with/issues/24).
+
 ## 2.0.1
 
 ### Patch Changes
