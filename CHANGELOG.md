@@ -6,6 +6,8 @@
 
 - [#22](https://github.com/ThisIsMissEm/adonisjs-respond-with/pull/22) [`6ae60cd`](https://github.com/ThisIsMissEm/adonisjs-respond-with/commit/6ae60cd59044ea3503ccfc335d747539bb85ffb7) Thanks [@ThisIsMissEm](https://github.com/ThisIsMissEm)! - Fix issue with missing Accept header triggering a random handler
 
+  This means that requests that omit the Accept header will now be handler by the default handler. In a future version, we may change this to allow a "default handler" and an "error handler", such that you can separately handle missing accepts header and non-matched accepts header.
+
 ## 2.0.0
 
 ### Major Changes

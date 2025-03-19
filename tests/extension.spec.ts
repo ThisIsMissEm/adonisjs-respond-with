@@ -74,6 +74,29 @@ test.group('Request respond_with', () => {
     assert.equal(ctx.response.getStatus(), 406, 'Should return 406 unprocessable')
   })
 
+  test('Returns the response from the handler', async ({ assert }) => {
+    const { testUtils } = await setupApp({
+      rcFileContents: {
+        providers: () => import('../providers/respond_with.js'),
+      },
+    })
+
+    const ctx = await testUtils.createHttpContext()
+    ctx.request.request.headers['accept'] = 'application/json'
+
+    const result = ctx.response.negotiate({
+      json: () => {
+        // Set a different status code
+        ctx.response.status(201)
+        return { test: 'ok' }
+      },
+    })
+
+    assert.instanceOf(result, Promise, 'Should return a promise')
+    assert.deepEqual(await result, { test: 'ok' }, 'Resolves to the json handler return value')
+    assert.equal(ctx.response.getStatus(), 201, 'Status should be 200')
+  })
+
   test('Additional Types with unsupported type that would require an additional type', async ({
     assert,
   }) => {
