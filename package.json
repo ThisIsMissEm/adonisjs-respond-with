@@ -1,7 +1,7 @@
 {
   "name": "@thisismissem/adonisjs-respond-with",
   "description": "A small plugin for Adonis.js to make responding with different content-types easier.",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "engines": {
     "node": ">=20.6.0"
   },
