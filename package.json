@@ -42,7 +42,7 @@
     "@adonisjs/eslint-config": "^2.0.0-beta.7",
     "@adonisjs/prettier-config": "^1.4.0",
     "@adonisjs/tsconfig": "^1.4.0",
-    "@arethetypeswrong/cli": "^0.17.3",
+    "@arethetypeswrong/cli": "^0.18.1",
     "@changesets/changelog-github": "^0.5.0",
     "@changesets/cli": "^2.27.12",
     "@japa/assert": "^4.0.1",
