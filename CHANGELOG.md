@@ -1,5 +1,13 @@
 # @thisismissem/adonisjs-respond-with
 
+## 2.1.1
+
+### Patch Changes
+
+- [#31](https://github.com/ThisIsMissEm/adonisjs-respond-with/pull/31) [`a7b6ad9`](https://github.com/ThisIsMissEm/adonisjs-respond-with/commit/a7b6ad9d8b3fe806b575e984b1dc568b1be44630) Thanks [@ThisIsMissEm](https://github.com/ThisIsMissEm)! - Update mime-types peer dependency to 3.0.1
+
+  Whilst this update does drop node.js 18 support, this package never officially supported node.js 18, so that is a non-breaking change for us. We've also updated some development dependencies.
+
 ## 2.1.0
 
 ### Minor Changes
