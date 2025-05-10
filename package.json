@@ -64,7 +64,7 @@
   },
   "peerDependencies": {
     "@adonisjs/core": "^6.2.0",
-    "mime-types": "^2.1.35"
+    "mime-types": "^3.0.1"
   },
   "contributors": [
     {
