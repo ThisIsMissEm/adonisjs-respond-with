@@ -25,7 +25,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint '**/*.ts'",
     "format": "prettier --ignore-path .gitignore --write .",
-    "quick:test": "node --import=./tsnode.esm.js --enable-source-maps bin/test.ts",
+    "quick:test": "time node --trace-deprecation --trace-warnings --enable-source-maps test.js",
     "pretest": "npm run lint",
     "test": "c8 npm run quick:test",
     "prebuild": "npm run lint && npm run clean",
@@ -58,7 +58,7 @@
     "eslint": "^9.20.1",
     "prettier": "^3.5.0",
     "sinon": "^21.0.0",
-    "ts-node": "^10.9.2",
+    "ts-node-maintained": "^10.9.6",
     "typescript": "^5.7.3",
     "yalc": "^1.0.0-pre.53"
   },
