@@ -79,7 +79,9 @@
       "url": "https://github.com/thisismissem"
     }
   ],
-  "repository": "github:thisismissem/adonisjs-respond-with",
+  "repository": {
+    "url": "https://github.com/ThisIsMissEm/adonisjs-respond-with"
+  },
   "license": "MIT",
   "keywords": [
     "adonisjs",
