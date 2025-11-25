@@ -1,6 +1,6 @@
 import { ApplicationService } from '@adonisjs/core/types'
 import type { RespondWithConfig } from '../src/types.js'
-import { Negotiator } from '../src/negotiator.js'
+import { AcceptNegotiator } from '../src/acceptor.js'
 
 export default class RespondWithProvider {
   constructor(protected app: ApplicationService) {}
@@ -10,15 +10,16 @@ export default class RespondWithProvider {
   }
 
   register() {
-    this.app.container.singleton(Negotiator, async () => {
+    this.app.container.singleton(AcceptNegotiator, async () => {
       const config = this.app.config.get<RespondWithConfig>('respond_with', {
         defaultHandler: 'error',
         mappings: {},
       })
+      const logger = await this.app.container.make('logger')
 
-      return new Negotiator(config)
+      return new AcceptNegotiator(config, logger)
     })
 
-    this.app.container.alias('respondWith.negotiator', Negotiator)
+    this.app.container.alias('respondWith.acceptNegotiator', AcceptNegotiator)
   }
 }

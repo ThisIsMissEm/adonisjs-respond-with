@@ -25,9 +25,10 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint '**/*.ts'",
     "format": "prettier --ignore-path .gitignore --write .",
-    "quick:test": "node --import=./tsnode.esm.js --enable-source-maps bin/test.ts",
+    "quick:test": "time node --trace-deprecation --trace-warnings --enable-source-maps test.js",
     "pretest": "npm run lint",
     "test": "c8 npm run quick:test",
+    "test:logs": "cat test-logs.ndjson | pino-pretty",
     "prebuild": "npm run lint && npm run clean",
     "build": "tsc",
     "postbuild": "npm run copy:templates",
@@ -49,22 +50,27 @@
     "@japa/file-system": "^2.3.2",
     "@japa/runner": "^4.2.0",
     "@swc/core": "^1.10.15",
-    "@types/node": "^24.0.8",
     "@types/mime-types": "^3.0.0",
+    "@types/negotiator": "^0.6.4",
+    "@types/node": "^24.0.8",
     "@types/sinon": "^17.0.3",
     "c8": "^10.1.3",
     "copyfiles": "^2.4.1",
     "del-cli": "^7.0.0",
     "eslint": "^9.20.1",
+    "pino-pretty": "^13.1.2",
     "prettier": "^3.5.0",
     "sinon": "^21.0.0",
-    "ts-node": "^10.9.2",
+    "ts-node-maintained": "^10.9.6",
     "typescript": "^5.7.3",
     "yalc": "^1.0.0-pre.53"
   },
   "peerDependencies": {
     "@adonisjs/core": "^6.2.0",
     "mime-types": "^3.0.1"
+  },
+  "dependencies": {
+    "negotiator": "^1.0.0"
   },
   "contributors": [
     {

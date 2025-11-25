@@ -1,33 +1,62 @@
-import { Response } from '@adonisjs/core/http'
+import { Response, Request } from '@adonisjs/core/http'
 import type { ResponseMatchers, NegotiateOptions } from './types.js'
-import { Negotiator } from './negotiator.js'
+import { AcceptNegotiator } from './acceptor.js'
 import { RuntimeException } from '@adonisjs/core/exceptions'
+import Negotiator from 'negotiator'
+
+Request.getter(
+  'negotiator',
+  function (this: Request): Negotiator {
+    return new Negotiator(this.request)
+  },
+  true
+)
 
 Response.macro('negotiate', async function <
   T extends ResponseMatchers,
 >(this: Response, matchers: T, options?: NegotiateOptions<T>): Promise<void> {
-  const negotiator: Negotiator = await this.ctx!.containerResolver.make(Negotiator)
+  const acceptor = await this.ctx!.containerResolver.make(AcceptNegotiator)
+  const negotiator = this.ctx!.request.negotiator
 
-  const matcherNames = Object.keys(matchers)
-  const acceptedTypes = negotiator.getAcceptedTypes(matcherNames)
+  const { acceptedTypes, handlers } = acceptor.processMatchers(matchers)
+  const preferredType = negotiator.mediaType(acceptedTypes) ?? null
+  const mediaType = negotiator.mediaType()
 
-  const bestMatch = this.ctx!.request.accepts(acceptedTypes)
+  // We don't want to assert code coverage on debugging code:
+  /* c8 ignore start */
+  if (this.ctx?.logger.isLevelEnabled('trace')) {
+    this.ctx?.logger.trace({
+      respondWith: {
+        acceptHeader: this.ctx!.request.header('accept'),
+        acceptedTypes,
+        preferredType,
+        mediaType: mediaType ?? null,
+        matchers: Object.keys(matchers),
+        handlers: Object.fromEntries(
+          handlers.entries().map(([contentType, handler]) => [contentType, handler.name])
+        ),
+      },
+    })
+  }
+  /* c8 ignore stop */
 
-  this.ctx?.logger.trace({
-    respondWith: {
-      acceptHeader: this.ctx!.request.header('accept'),
-      acceptedTypes,
-      bestMatch,
-      matchers: matcherNames,
-    },
-  })
+  // If we support the preferred type, then execute the handler
+  if (preferredType && handlers.has(preferredType)) {
+    const handler = handlers.get(preferredType)
+    if (typeof handler === 'function') {
+      return await handler(preferredType)
+    }
+  }
 
-  // If we support the matched content-type is known, execute it:
-  if (bestMatch && acceptedTypes.includes(bestMatch)) {
-    const handlerName = negotiator.getHandlerFromContentType(bestMatch, matcherNames)
-
-    if (typeof handlerName === 'string' && typeof matchers[handlerName] === 'function') {
-      return await matchers[handlerName](bestMatch)
+  // If we don't support the exact preferred type, but do support the media
+  // type, and have that handler, then execute it. This allows for
+  // `application/ld+json; profile="https://www.w3.org/ns/activitystreams` to
+  // execute the `application/ld+json` handler if no more specific handler
+  // exists:
+  if (!preferredType && mediaType && handlers.has(mediaType)) {
+    const handler = handlers.get(mediaType)
+    if (typeof handler === 'function') {
+      return await handler(mediaType)
     }
   }
 
@@ -41,26 +70,33 @@ Response.macro('negotiate', async function <
       return this.notAcceptable()
     }
 
-    if (typeof matchers[options.defaultHandler] === 'function') {
-      return await matchers[options.defaultHandler]()
-      // The else branch here can only ever happen if someone's completely
-      // ignored the typechecking, hence not covering it:
-      /* c8 ignore next 5 */
+    const defaultHandler = matchers[options.defaultHandler]
+    if (typeof defaultHandler === 'function') {
+      return await defaultHandler()
     } else {
+      // This else branch can only ever happen if someone's completely ignored
+      // the typechecking:
       throw new RuntimeException(
-        `Could not find handler for response.negotiate when using default: ${options.defaultHandler}`
+        `Could not find handler for response.negotiate when using default: ${options.defaultHandler}`,
+        { status: 406 }
       )
     }
   }
 
-  // Else if we have a global defaultHandler, and it's not an error response, and
-  // we have a supported matcher for the default type, execute it.
-  const defaultHandler = negotiator.getDefaultHandler()
-  if (defaultHandler !== 'error' && typeof matchers[defaultHandler] === 'function') {
-    return await matchers[defaultHandler]()
+  // Else if we have a global defaultHandler, and it's an error response, return an error:
+  const defaultHandler = acceptor.defaultHandler
+  if (defaultHandler === 'error') {
+    return this.notAcceptable()
   }
 
-  // Finally through a 406 Unacceptable response, indicating the given
+  // Else if we have a global defaultHandler, and it's not an error response, and
+  // we have a supported handler for the default handler, execute it.
+  const handler = matchers[defaultHandler]
+  if (typeof handler === 'function') {
+    return await handler()
+  }
+
+  // Finally fall through to a 406 Unacceptable response, indicating the given
   // content-type could not be handled.
   return this.notAcceptable()
 })
