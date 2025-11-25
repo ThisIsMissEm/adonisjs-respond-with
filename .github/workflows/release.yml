@@ -12,22 +12,29 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    environment: Release
+    if: ${{ github.ref == 'refs/heads/main' && github.repository_owner == 'ThisIsMissEm' }}
     permissions:
+      id-token: write
       pull-requests: write
       contents: write
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: Setup Node.js 22.x
-        uses: actions/setup-node@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 22.x
+          node-version-file: '.node-version'
+          cache: pnpm
 
       - name: Install Dependencies
-        run: npm install
+        run: pnpm install
 
-      - name: Create Release Pull Request or Publish to npm
+      - name: Create Release Pull Request or Publish to pnpm
         id: changesets
         uses: changesets/action@v1
 
@@ -35,9 +42,10 @@ jobs:
           title: Prepare release
           commit: prepare release of packages
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
-          publish: npm run release
-          version: npm run version-packages
+          publish: pnpm run release
+          version: pnpm run version-packages
           createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # Use OIDC for npm authentication instead of NPM_TOKEN
+          NPM_TOKEN: '' # https://github.com/changesets/changesets/issues/1152#issuecomment-3190884868
