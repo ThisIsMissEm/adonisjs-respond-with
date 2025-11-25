@@ -75,7 +75,7 @@ test.group('defineConfig', () => {
   test('throw a configuration error with mappings as an array', ({ assert }) => {
     assert.throws(() => {
       defineConfig({
-        // @ts-expect-error
+        // @ts-expect-error We're deliberately passing an invalid value type for mappings:
         mappings: [],
       })
     }, 'The "mappings" property must be an object if defined')
