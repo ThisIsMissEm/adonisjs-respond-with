@@ -1,5 +1,21 @@
 # @thisismissem/adonisjs-respond-with
 
+## 3.0.0
+
+### Major Changes
+
+- [#39](https://github.com/ThisIsMissEm/adonisjs-respond-with/pull/39) [`fdb3455`](https://github.com/ThisIsMissEm/adonisjs-respond-with/commit/fdb3455fc68b3768dbbdbd16ff8a9b4c6771fb94) Thanks [@ThisIsMissEm](https://github.com/ThisIsMissEm)! - Rework to use negotiator directly instead of accepts
+
+  This allows us to correctly handle `application/ld+json; profile="https://www.w3.org/ns/activitystreams"` with a registered `application/ld+json` mapping to a handler name. Technically a mime-type with parameters and a mime-type without are distinct mime-types, but for our uses, we actually want to treat them as the same, and cascade to just the mime-type without parameters.
+
+### Patch Changes
+
+- [#40](https://github.com/ThisIsMissEm/adonisjs-respond-with/pull/40) [`4bcda5e`](https://github.com/ThisIsMissEm/adonisjs-respond-with/commit/4bcda5e04c41af1c29e60c3f2b508311287064ac) Thanks [@ThisIsMissEm](https://github.com/ThisIsMissEm)! - Add testing for Node.js 24 to CI
+
+- [#41](https://github.com/ThisIsMissEm/adonisjs-respond-with/pull/41) [`19cf4cc`](https://github.com/ThisIsMissEm/adonisjs-respond-with/commit/19cf4cc9cc23327d263c2693cdcd3a6d978dac4a) Thanks [@ThisIsMissEm](https://github.com/ThisIsMissEm)! - Use trusted publishing
+
+- [#36](https://github.com/ThisIsMissEm/adonisjs-respond-with/pull/36) [`3dc62bb`](https://github.com/ThisIsMissEm/adonisjs-respond-with/commit/3dc62bb473b27143290e6df8035ac04f53510ab8) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump del-cli from 6.0.0 to 7.0.0
+
 ## 2.1.1
 
 ### Patch Changes
