@@ -16,11 +16,11 @@ export interface NegotiateOptions<MatcherNames> {
 }
 
 declare module '@adonisjs/core/http' {
-  interface Request {
+  interface HttpRequest {
     negotiator: Negotiator
   }
 
-  interface Response {
+  interface HttpResponse {
     negotiate<T extends ResponseMatchers>(matchers: T): any
     negotiate<T extends ResponseMatchers>(matchers: T, options: NegotiateOptions<keyof T>): any
   }

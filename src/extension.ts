@@ -1,20 +1,20 @@
-import { Response, Request } from '@adonisjs/core/http'
+import { HttpResponse, HttpRequest } from '@adonisjs/core/http'
 import type { ResponseMatchers, NegotiateOptions } from './types.js'
 import { AcceptNegotiator } from './acceptor.js'
 import { RuntimeException } from '@adonisjs/core/exceptions'
 import Negotiator from 'negotiator'
 
-Request.getter(
+HttpRequest.getter(
   'negotiator',
-  function (this: Request): Negotiator {
+  function (this: HttpRequest): Negotiator {
     return new Negotiator(this.request)
   },
   true
 )
 
-Response.macro('negotiate', async function <
+HttpResponse.macro('negotiate', async function <
   T extends ResponseMatchers,
->(this: Response, matchers: T, options?: NegotiateOptions<T>): Promise<void> {
+>(this: HttpResponse, matchers: T, options?: NegotiateOptions<T>): Promise<void> {
   const acceptor = await this.ctx!.containerResolver.make(AcceptNegotiator)
   const negotiator = this.ctx!.request.negotiator
 
