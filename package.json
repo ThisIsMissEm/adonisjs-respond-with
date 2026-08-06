@@ -3,7 +3,7 @@
   "description": "A small plugin for Adonis.js to make responding with different content-types easier.",
   "version": "3.0.0",
   "engines": {
-    "node": ">=20.6.0"
+    "node": ">=24.0.0"
   },
   "packageManager": "pnpm@10.23.0+sha512.21c4e5698002ade97e4efe8b8b4a89a8de3c85a37919f957e7a0f30f38fbc5bbdd05980ffe29179b2fb6e6e691242e098d945d1601772cad0fef5fb6411e2a4b",
   "main": "./build/index.js",
@@ -39,18 +39,18 @@
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "@adonisjs/assembler": "^7.7.0",
-    "@adonisjs/core": "^6.12.0",
-    "@adonisjs/eslint-config": "^2.0.0-beta.7",
-    "@adonisjs/prettier-config": "^1.4.0",
-    "@adonisjs/tsconfig": "^1.4.0",
+    "@adonisjs/assembler": "^8.4.0",
+    "@adonisjs/core": "^7.0.0",
+    "@adonisjs/eslint-config": "^3.1.0",
+    "@adonisjs/prettier-config": "^1.5.0",
+    "@adonisjs/tsconfig": "^2.0.0",
     "@arethetypeswrong/cli": "^0.18.1",
     "@changesets/changelog-github": "^0.5.0",
     "@changesets/cli": "^2.27.12",
     "@japa/assert": "^4.0.1",
     "@japa/file-system": "^2.3.2",
     "@japa/runner": "^4.2.0",
-    "@swc/core": "^1.10.15",
+    "@poppinss/ts-exec": "^1.4.4",
     "@types/mime-types": "^3.0.0",
     "@types/negotiator": "^0.6.4",
     "@types/node": "^24.0.8",
@@ -62,12 +62,11 @@
     "pino-pretty": "^13.1.2",
     "prettier": "^3.5.0",
     "sinon": "^21.0.0",
-    "ts-node-maintained": "^10.9.6",
     "typescript": "^5.7.3",
     "yalc": "^1.0.0-pre.53"
   },
   "peerDependencies": {
-    "@adonisjs/core": "^6.2.0",
+    "@adonisjs/core": "^7.0.0",
     "mime-types": "^3.0.1"
   },
   "dependencies": {

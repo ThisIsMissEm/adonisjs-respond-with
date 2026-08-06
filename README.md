@@ -4,7 +4,7 @@ A small plugin for Adonis.js to make responding with different content-types eas
 
 ## API
 
-This package extends the Request class to add a respondWith method, which takes a record of key-value pairs where the key is the accepted content-type, and the value is a callable function that handles the response.
+This package extends the HttpRequest class to add a respondWith method, which takes a record of key-value pairs where the key is the accepted content-type, and the value is a callable function that handles the response.
 
 ## Example Usage
 
