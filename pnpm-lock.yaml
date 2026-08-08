@@ -41,10 +41,10 @@ importers:
         version: 2.29.8(@types/node@24.10.1)
       '@japa/assert':
         specifier: ^4.0.1
-        version: 4.1.1(@japa/runner@4.4.0)
+        version: 4.2.0(@japa/runner@4.4.0)
       '@japa/file-system':
         specifier: ^2.3.2
-        version: 2.3.2(@japa/assert@4.1.1(@japa/runner@4.4.0))(@japa/runner@4.4.0)
+        version: 2.3.2(@japa/assert@4.2.0(@japa/runner@4.4.0))(@japa/runner@4.4.0)
       '@japa/runner':
         specifier: ^4.2.0
         version: 4.4.0
@@ -422,11 +422,11 @@ packages:
     resolution: {integrity: sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA==}
     engines: {node: '>=8'}
 
-  '@japa/assert@4.1.1':
-    resolution: {integrity: sha512-Hhv8A/gkd1b4Xa2Jti4XJ3FsP/pJ8ZXAWwvgYVKZQNcl79lqIHsMjMrL3e475pbf8lybB++FvXi4ruoz2SsiBA==}
+  '@japa/assert@4.2.0':
+    resolution: {integrity: sha512-Krgrcee01BN1StlVwK5JQP6LL5t3DE3uFNbfFoDTfW7kQuHB0xh6yfaV0hrgcoiEjsqmm2OOsVWeju9aXK4vIA==}
     engines: {node: '>=18.16.0'}
     peerDependencies:
-      '@japa/runner': ^3.1.2 || ^4.0.0
+      '@japa/runner': ^3.1.2 || ^4.0.0 || ^5.0.0
 
   '@japa/core@10.3.0':
     resolution: {integrity: sha512-+vaqMiPnVaxlKH1sAwRQ80AwzlPysPKivhB8q1I2+BGe35lNrfiHKGMC52fuGAZBNuH5W2nInSCxr4cN/BTEIQ==}
@@ -965,8 +965,8 @@ packages:
     resolution: {integrity: sha512-wljhAjDDIv/hM2FzgJnYQg90AWmZMNtESCjTeLH680qTzdo0nErlCxOmgzgX4ZsZAtIvqHyD87ES8QyriXB+BQ==}
     engines: {node: '>=18'}
 
-  chai@5.3.3:
-    resolution: {integrity: sha512-4zNhdJD/iOjSH0A05ea+Ke6MU5mmpQcbQsSOkgdaUMJ9zTlDTD/GYlwohmIE2u0gaxHYiVHEn1Fw9mZ/ktJWgw==}
+  chai@6.2.2:
+    resolution: {integrity: sha512-NUPRluOfOiTKBKvWPtSD4PhFvWCqOi0BGStNWs57X9js7XGTprSmFoz5F0tWhR4WPjNeR9jXqdC7/UpSJTnlRg==}
     engines: {node: '>=18'}
 
   chalk@4.1.2:
@@ -990,10 +990,6 @@ packages:
   check-disk-space@3.4.0:
     resolution: {integrity: sha512-drVkSqfwA+TvuEhFipiR1OC9boEGZL5RrWvVsOthdcvQNXyCCuKkEiTOTXZ7qxSf/GLwq4GvzfrQD/Wz325hgw==}
     engines: {node: '>=16'}
-
-  check-error@2.1.1:
-    resolution: {integrity: sha512-OAlb+T7V4Op9OwdkjmguYRqncdlx5JiofwOAUkmTF+jNdHwzTaTs4sRAGpzLF3oOz5xAyDGrPgeIDFQmDOTiJw==}
-    engines: {node: '>= 16'}
 
   chevrotain@11.0.3:
     resolution: {integrity: sha512-ci2iJH6LeIkvP9eJW6gpueU8cnZhv85ELY8w8WiFtNjMHA5ad6pQLaJo9mEly/9qUyCpvqX8/POVUTf18/HFdw==}
@@ -1144,10 +1140,6 @@ packages:
     peerDependenciesMeta:
       babel-plugin-macros:
         optional: true
-
-  deep-eql@5.0.2:
-    resolution: {integrity: sha512-h5k/5U50IJJFpzfL6nO9jaaumfjO/f2NjK/oYB2Djzm4p9L+3T9qWpZqZ2hAbLPuuYq9wrU08WQyBTL5GbPk5Q==}
-    engines: {node: '>=6'}
 
   deep-is@0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
@@ -1766,9 +1758,6 @@ packages:
     resolution: {integrity: sha512-cSSF1K5w9juI2+JeSRAdaTUZJf6cJB0aWwWO1nQQkcWw44+bIfXmhZMwK2eEsv6tXvU3UfKX/kzcX6SP+1tLAw==}
     engines: {node: '>=20'}
 
-  loupe@3.2.1:
-    resolution: {integrity: sha512-CdzqowRJCeLU72bHvWqwRBBlLcMEtIvGrlvef74kMnV2AolS9Y8xUv1I0U/MNAWMhBlKIoyuEgoJ0t/bbwHbLQ==}
-
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
 
@@ -2055,10 +2044,6 @@ packages:
   path-type@6.0.0:
     resolution: {integrity: sha512-Vj7sf++t5pBD637NSfkxpHSMfWaeig5+DKWLhcqIYx6mWQz5hdJTGDVMQiJcw1ZYkhs7AazKDGpRVji1LJCZUQ==}
     engines: {node: '>=18'}
-
-  pathval@2.0.1:
-    resolution: {integrity: sha512-//nshmD55c46FuFw26xV/xFAaB5HF9Xdap7HJBBnrKdAd6/GxDBaNA1870O79+9ueg61cZLSVc+OaFlfmObYVQ==}
-    engines: {node: '>= 14.16'}
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -3202,13 +3187,13 @@ snapshots:
 
   '@istanbuljs/schema@0.1.3': {}
 
-  '@japa/assert@4.1.1(@japa/runner@4.4.0)':
+  '@japa/assert@4.2.0(@japa/runner@4.4.0)':
     dependencies:
       '@japa/runner': 4.4.0
       '@poppinss/macroable': 1.1.0
       '@types/chai': 5.2.3
       assertion-error: 2.0.1
-      chai: 5.3.3
+      chai: 6.2.2
 
   '@japa/core@10.3.0':
     dependencies:
@@ -3227,9 +3212,9 @@ snapshots:
       supports-color: 10.2.2
       youch: 4.1.0-beta.13
 
-  '@japa/file-system@2.3.2(@japa/assert@4.1.1(@japa/runner@4.4.0))(@japa/runner@4.4.0)':
+  '@japa/file-system@2.3.2(@japa/assert@4.2.0(@japa/runner@4.4.0))(@japa/runner@4.4.0)':
     dependencies:
-      '@japa/assert': 4.1.1(@japa/runner@4.4.0)
+      '@japa/assert': 4.2.0(@japa/runner@4.4.0)
       '@japa/runner': 4.4.0
       '@paralleldrive/cuid2': 2.3.1
       '@poppinss/macroable': 1.1.0
@@ -3790,13 +3775,7 @@ snapshots:
 
   case-anything@3.1.2: {}
 
-  chai@5.3.3:
-    dependencies:
-      assertion-error: 2.0.1
-      check-error: 2.1.1
-      deep-eql: 5.0.2
-      loupe: 3.2.1
-      pathval: 2.0.1
+  chai@6.2.2: {}
 
   chalk@4.1.2:
     dependencies:
@@ -3812,8 +3791,6 @@ snapshots:
   chardet@2.1.1: {}
 
   check-disk-space@3.4.0: {}
-
-  check-error@2.1.1: {}
 
   chevrotain@11.0.3:
     dependencies:
@@ -3957,8 +3934,6 @@ snapshots:
       ms: 2.1.3
 
   dedent@1.7.0: {}
-
-  deep-eql@5.0.2: {}
 
   deep-is@0.1.4: {}
 
@@ -4557,8 +4532,6 @@ snapshots:
       strip-ansi: 7.1.2
       wrap-ansi: 9.0.2
 
-  loupe@3.2.1: {}
-
   lru-cache@10.4.3: {}
 
   lru-cache@11.2.2: {}
@@ -4793,8 +4766,6 @@ snapshots:
   path-type@4.0.0: {}
 
   path-type@6.0.0: {}
-
-  pathval@2.0.1: {}
 
   picocolors@1.1.1: {}
 
