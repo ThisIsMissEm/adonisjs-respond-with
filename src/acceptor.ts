@@ -1,7 +1,7 @@
 import * as mime from 'mime-types'
 
-import { Handler, RespondWithConfig, ResponseMatchers } from './types.js'
-import { Logger } from '@adonisjs/core/logger'
+import type { Handler, RespondWithConfig, ResponseMatchers } from './types.js'
+import type { Logger } from '@adonisjs/core/logger'
 import app from '@adonisjs/core/services/app'
 
 type Matcher = {
