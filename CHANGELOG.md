@@ -1,5 +1,37 @@
 # @thisismissem/adonisjs-respond-with
 
+## 4.0.0
+
+### Major Changes
+
+- [#53](https://github.com/ThisIsMissEm/adonisjs-respond-with/pull/53) [`ba17772`](https://github.com/ThisIsMissEm/adonisjs-respond-with/commit/ba177725e925ff2056544d971b5094b4ab0a2ac9) Thanks [@ryan-hmd](https://github.com/ryan-hmd)! - Upgrade to AdonisJS v7
+
+  Updates the following packages to their latest (v7-compatible) versions:
+
+  - `@adonisjs/assembler`
+  - `@adonisjs/core`
+  - `@adonisjs/eslint-config`
+  - `@adonisjs/prettier-config`
+  - `@adonisjs/tsconfig`
+
+  **Breaking changes:**
+
+  - Bumps `@adonisjs/core` peer dependency from `^6.2.0` to `^7.x`
+  - Requires Node.js `>=24.0.0` (previously `>=20.6.0`)
+  - Renamed `Request` to `HttpRequest` and `Response` to `HttpResponse` to match the AdonisJS v7 interface naming
+
+  **Internal changes:**
+
+  - Replaced `ts-node` with `@poppinss/ts-exec`, the TypeScript JIT compiler now used by AdonisJS v7
+
+### Patch Changes
+
+- [#54](https://github.com/ThisIsMissEm/adonisjs-respond-with/pull/54) [`ed109c9`](https://github.com/ThisIsMissEm/adonisjs-respond-with/commit/ed109c9e8484a031d7fd9a7ea0e314be2a17cd21) Thanks [@ThisIsMissEm](https://github.com/ThisIsMissEm)! - Fix typescript type-only imports
+
+- [#56](https://github.com/ThisIsMissEm/adonisjs-respond-with/pull/56) [`f9ef8d1`](https://github.com/ThisIsMissEm/adonisjs-respond-with/commit/f9ef8d1a27bd07abd078727428e7abf22072e548) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump sinon and @types/sinon
+
+- [#54](https://github.com/ThisIsMissEm/adonisjs-respond-with/pull/54) [`998936a`](https://github.com/ThisIsMissEm/adonisjs-respond-with/commit/998936a61ef11734c13b93c56c1f8d69d56416d4) Thanks [@ThisIsMissEm](https://github.com/ThisIsMissEm)! - Upgrade release & test workflows for pnpm and staged publishing
+
 ## 3.0.0
 
 ### Major Changes
