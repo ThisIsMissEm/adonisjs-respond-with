@@ -5,8 +5,7 @@
   "engines": {
     "node": ">=24.0.0"
   },
-  "packageManager": "pnpm@10.23.0+sha512.21c4e5698002ade97e4efe8b8b4a89a8de3c85a37919f957e7a0f30f38fbc5bbdd05980ffe29179b2fb6e6e691242e098d945d1601772cad0fef5fb6411e2a4b",
-  "main": "./build/index.js",
+  "packageManager": "pnpm@11.20.0",
   "type": "module",
   "files": [
     "build/",
@@ -14,64 +13,39 @@
     "!build/bin",
     "!build/tests"
   ],
+  "main": "build/index.js",
   "exports": {
     ".": "./build/index.js",
     "./types": "./build/src/types.js",
     "./provider": "./build/providers/respond_with.js"
   },
   "scripts": {
-    "clean": "del-cli build",
+    "changeset": "changeset",
     "copy:templates": "copyfiles \"stubs/**/*.stub\" build",
-    "check-exports": "attw --pack . --profile esm-only --ignore-rules=cjs-resolves-to-esm",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint '**/*.ts'",
-    "format": "prettier --ignore-path .gitignore --write .",
-    "quick:test": "time node --trace-deprecation --trace-warnings --enable-source-maps test.js",
-    "pretest": "npm run lint",
-    "test": "c8 npm run quick:test",
-    "test:logs": "cat test-logs.ndjson | pino-pretty",
-    "prebuild": "npm run lint && npm run clean",
-    "build": "tsc",
-    "postbuild": "npm run copy:templates",
-    "prettier:write": "prettier --ignore-path .gitignore --write",
-    "version-packages": "changeset version && npm run prettier:write CHANGELOG.md && git add package.json CHANGELOG.md",
-    "release": "npm run build && changeset publish",
-    "prepublishOnly": "npm run build"
+    "lint": "pnpm run typecheck && eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write",
+    "quick:test": "node --import=@poppinss/ts-exec --enable-source-maps bin/test.ts",
+    "pretest": "pnpm run lint",
+    "test": "c8 pnpm run quick:test",
+    "types:check": "attw --pack . --profile esm-only --profile node16 --ignore-rules=cjs-resolves-to-esm",
+    "precompile": "pnpm run lint",
+    "compile": "tsdown && tsc --emitDeclarationOnly --declaration",
+    "postcompile": "pnpm run copy:templates",
+    "build": "pnpm run compile",
+    "version-packages": "changeset version && pnpm run format:write CHANGELOG.md && git add package.json CHANGELOG.md",
+    "release": "pnpm run build && changeset publish",
+    "prepublishOnly": "pnpm run build"
   },
-  "devDependencies": {
-    "@adonisjs/assembler": "^8.4.0",
-    "@adonisjs/core": "^7.0.0",
-    "@adonisjs/eslint-config": "^3.1.0",
-    "@adonisjs/prettier-config": "^1.5.0",
-    "@adonisjs/tsconfig": "^2.0.0",
-    "@arethetypeswrong/cli": "^0.18.1",
-    "@changesets/changelog-github": "^0.5.0",
-    "@changesets/cli": "^2.27.12",
-    "@japa/assert": "^4.0.1",
-    "@japa/file-system": "^2.3.2",
-    "@japa/runner": "^4.2.0",
-    "@poppinss/ts-exec": "^1.4.4",
-    "@types/mime-types": "^3.0.0",
-    "@types/negotiator": "^0.6.4",
-    "@types/node": "^24.0.8",
-    "@types/sinon": "^21.0.0",
-    "c8": "^10.1.3",
-    "copyfiles": "^2.4.1",
-    "del-cli": "^7.0.0",
-    "eslint": "^9.20.1",
-    "pino-pretty": "^13.1.2",
-    "prettier": "^3.5.0",
-    "sinon": "^21.0.0",
-    "typescript": "^5.7.3",
-    "yalc": "^1.0.0-pre.53"
-  },
-  "peerDependencies": {
-    "@adonisjs/core": "^7.0.0",
-    "mime-types": "^3.0.1"
-  },
-  "dependencies": {
-    "negotiator": "^1.0.0"
-  },
+  "keywords": [
+    "adonisjs",
+    "content-negotiation",
+    "conneg"
+  ],
+  "author": "Emelia Smith",
+  "license": "MIT",
   "contributors": [
     {
       "name": "Emelia Smith",
@@ -81,15 +55,67 @@
   "repository": {
     "url": "https://github.com/ThisIsMissEm/adonisjs-respond-with"
   },
-  "license": "MIT",
-  "keywords": [
-    "adonisjs",
-    "content-negotiation"
-  ],
-  "prettier": "@adonisjs/prettier-config",
+  "dependencies": {
+    "negotiator": "^1.0.0"
+  },
+  "devDependencies": {
+    "@adonisjs/assembler": "^8.4.0",
+    "@adonisjs/core": "^7.0.0",
+    "@adonisjs/eslint-config": "^3.1.0",
+    "@adonisjs/prettier-config": "^1.5.0",
+    "@adonisjs/tsconfig": "^2.0.0",
+    "@arethetypeswrong/cli": "^0.18.2",
+    "@changesets/changelog-github": "^0.6.0",
+    "@changesets/cli": "^2.31.0",
+    "@japa/assert": "^4.2.0",
+    "@japa/file-system": "^2.3.2",
+    "@japa/runner": "^5.3.0",
+    "@poppinss/ts-exec": "^1.4.4",
+    "@types/mime-types": "^3.0.0",
+    "@types/negotiator": "^0.6.4",
+    "@types/node": "^25.6.0",
+    "@types/sinon": "^21.0.0",
+    "c8": "^11.0.0",
+    "copyfiles": "^2.4.1",
+    "eslint": "^10.2.1",
+    "pino-pretty": "^13.1.2",
+    "prettier": "^3.8.3",
+    "sinon": "^21.0.0",
+    "tsdown": "^0.21.10",
+    "typescript": "^5.7.3",
+    "yalc": "1.0.0-pre.53"
+  },
+  "peerDependencies": {
+    "@adonisjs/assembler": "^8.4.0",
+    "@adonisjs/core": "^7.0.0",
+    "mime-types": "^3.0.1"
+  },
+  "peerDependenciesMeta": {
+    "@adonisjs/assembler": {
+      "optional": true
+    }
+  },
   "publishConfig": {
     "access": "public",
-    "tag": "latest"
+    "provenance": true
+  },
+  "tsdown": {
+    "entry": [
+      "./index.ts",
+      "./configure.ts",
+      "./providers/respond_with.ts",
+      "./src/types.ts"
+    ],
+    "outDir": "./build",
+    "clean": true,
+    "format": "esm",
+    "minify": "dce-only",
+    "fixedExtension": false,
+    "dts": false,
+    "treeshake": false,
+    "sourcemaps": false,
+    "target": "esnext",
+    "unbundle": true
   },
   "c8": {
     "reporter": [
@@ -99,5 +125,6 @@
     "exclude": [
       "tests/**"
     ]
-  }
+  },
+  "prettier": "@adonisjs/prettier-config"
 }

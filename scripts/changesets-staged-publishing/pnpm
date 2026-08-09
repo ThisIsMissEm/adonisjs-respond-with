@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Rewrites `pnpm publish ...` -> `pnpm stage publish ...`; forwards everything
+# else to the real pnpm. Workaround for changesets#2025 / pnpm#13183.
+set -euo pipefail
+SELF_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
+REAL_PNPM="$(PATH="${PATH//$SELF_DIR:/}" command -v pnpm)"
+if [ "${1:-}" = "publish" ]; then
+  shift
+  exec "$REAL_PNPM" stage publish "$@"
+fi
+exec "$REAL_PNPM" "$@"
