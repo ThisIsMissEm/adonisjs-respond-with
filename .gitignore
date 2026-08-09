@@ -3,7 +3,12 @@ coverage
 .DS_STORE
 .nyc_output
 .idea
-.vscode/
+# Share workspace settings (YAML → prettier formatter) and the matching extension
+# recommendations. Uses `.vscode/*` rather than `.vscode/` so the negations below
+# apply — git cannot re-include a file whose parent directory is excluded.
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
 *.sublime-project
 *.sublime-workspace
 *.log

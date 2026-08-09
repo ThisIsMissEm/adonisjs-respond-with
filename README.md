@@ -13,9 +13,10 @@ export default class ExampleController {
   async show({ request, response, view }: HttpContext) {
     request.respondWith({
       html: () => view.render('pages/example'),
-      json: () => response.json({
-        example: true,
-      }),
+      json: () =>
+        response.json({
+          example: true,
+        }),
     })
   }
 }
@@ -27,7 +28,9 @@ Or with short-hand using [object literal concise method syntax](https://develope
 export default class ExampleController {
   async show({ request, response, view }: HttpContext) {
     request.respondWith({
-      html() { view.render('pages/example') },
+      html() {
+        view.render('pages/example')
+      },
       json() {
         response.json({
           example: true,
@@ -37,7 +40,6 @@ export default class ExampleController {
   }
 }
 ```
-
 
 This package gives:
 
@@ -60,7 +62,7 @@ export default class ExampleController {
       case 'html':
         return view.render('pages/example')
       default:
-        // decide yourself
+      // decide yourself
     }
   }
 }

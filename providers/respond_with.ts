@@ -1,4 +1,4 @@
-import { ApplicationService } from '@adonisjs/core/types'
+import type { ApplicationService } from '@adonisjs/core/types'
 import type { RespondWithConfig } from '../src/types.js'
 import { AcceptNegotiator } from '../src/acceptor.js'
 
