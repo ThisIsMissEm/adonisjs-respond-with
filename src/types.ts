@@ -21,8 +21,11 @@ declare module '@adonisjs/core/http' {
   }
 
   interface HttpResponse {
-    negotiate<T extends ResponseMatchers>(matchers: T): any
-    negotiate<T extends ResponseMatchers>(matchers: T, options: NegotiateOptions<keyof T>): any
+    negotiate<T extends ResponseMatchers>(matchers: T): ReturnType<T[keyof T]>
+    negotiate<T extends ResponseMatchers>(
+      matchers: T,
+      options: NegotiateOptions<keyof T>
+    ): ReturnType<T[keyof T]>
   }
 }
 
