@@ -1,5 +1,13 @@
 # @thisismissem/adonisjs-respond-with
 
+## 4.0.2
+
+### Patch Changes
+
+- [#60](https://github.com/ThisIsMissEm/adonisjs-respond-with/pull/60) [`a386cdc`](https://github.com/ThisIsMissEm/adonisjs-respond-with/commit/a386cdc869ba65f4e6d401d5a4db13620141b5d8) Thanks [@ryan-hmd](https://github.com/ryan-hmd)! - Improve return type of `response.negotiate`
+
+  Changed the return type from `any` to `ReturnType<T[keyof T]>` to accurately reflect the actual return type of the handlers passed to `negotiate`.
+
 ## 4.0.1
 
 ### Patch Changes
