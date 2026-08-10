@@ -1,5 +1,27 @@
 # @thisismissem/adonisjs-respond-with
 
+## 4.0.1
+
+### Patch Changes
+
+- [#58](https://github.com/ThisIsMissEm/adonisjs-respond-with/pull/58) [`b5d1346`](https://github.com/ThisIsMissEm/adonisjs-respond-with/commit/b5d134644e117abb2f6d1cba514ebfcefbd284cd) Thanks [@ThisIsMissEm](https://github.com/ThisIsMissEm)! - Fix the README documenting an API that was removed in v2.0.0
+
+  The README still showed `request.respondWith({ … })`, which was renamed to
+  `response.negotiate({ … })` in v2.0.0. Following the README produced a
+  `Property 'respondWith' does not exist on type 'HttpRequest'` TypeScript error.
+
+  The README now documents the real API, and gains the sections it never had:
+  installation, configuration (`defaultHandler` and `mappings`), how handler names
+  resolve to content-types, the resolution order, handling content-types with
+  parameters, and `request.negotiator`.
+
+  It also documents that `Accept: */*` and a missing `Accept` header express no
+  preference and so fall through to the default handler — a `406` unless you set
+  `defaultHandler`, either in `config/respond_with.ts` or per call via the second
+  argument to `negotiate`.
+
+  No runtime changes.
+
 ## 4.0.0
 
 ### Major Changes
