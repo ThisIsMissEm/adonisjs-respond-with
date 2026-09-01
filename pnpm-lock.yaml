@@ -20,7 +20,7 @@ importers:
         version: 8.4.0(typescript@5.9.3)
       '@adonisjs/core':
         specifier: ^7.0.0
-        version: 7.3.5(@adonisjs/assembler@8.4.0(typescript@5.9.3))(pino-pretty@13.1.3)(supports-color@10.2.2)(youch@4.1.1)
+        version: 7.5.0(@adonisjs/assembler@8.4.0(typescript@5.9.3))(pino-pretty@13.1.3)(supports-color@10.2.2)(youch@4.1.1)
       '@adonisjs/eslint-config':
         specifier: ^3.1.0
         version: 3.1.0(eslint@10.8.1(supports-color@10.2.2))(prettier@3.9.6)(supports-color@10.2.2)(typescript@5.9.3)
@@ -93,14 +93,14 @@ importers:
 
 packages:
 
-  '@adonisjs/ace@14.1.0':
-    resolution: {integrity: sha512-8N8z1YKePBiXz7wLxHFz/HSqjCRSL/9Vzs4XQt8gk8G17u4PXwNncWt0vSgYEcDrvPAt+QOavY1vMeKOOWe29w==}
+  '@adonisjs/ace@14.1.1':
+    resolution: {integrity: sha512-6MP2eZicAP8hd1US1PR2b6hEzWVaNlEbbAxanwDAyTOMW8PysefQam7b59ipbxw4+ADTJsgIyQWVt815W9f6WQ==}
     engines: {node: '>=24.0.0'}
     peerDependencies:
       youch: ^4.1.0-beta.11 || ^4.1.0
 
-  '@adonisjs/application@9.0.1':
-    resolution: {integrity: sha512-bSUC8vcECEr9qvvHeMAhjvH73ngAm5c6kOnEJYNCczP6rgG7AdH03MGtrY2ewKYDyS/QepNpDKj4oVE2XtxVtw==}
+  '@adonisjs/application@9.1.0':
+    resolution: {integrity: sha512-KWsTfkITDozW4csD4YofDEbbWuORKI056VgEr9WBwjIdrzIC7hqPxLtnszFVmyv14THPi0SRBTN/fIYQ6/SQ4Q==}
     engines: {node: '>=24.0.0'}
     peerDependencies:
       '@adonisjs/assembler': ^8.0.0-next.23 || ^8.0.0
@@ -126,14 +126,14 @@ packages:
     resolution: {integrity: sha512-YVDRL8xHCtM6iMnAefOBaz6iXVpojwBPDQWPKxnVSucycYeNGrGitJiLy+cGaeAU7Gjm8al9SJRJt3rRPr5PKg==}
     engines: {node: '>=24.0.0'}
 
-  '@adonisjs/core@7.3.5':
-    resolution: {integrity: sha512-2avaHQKlxOw013vvQNMJxU5D7S4IAiBpeRtRXGOYWYk5jCVmtk2RCaUnBstiYsepzRKQkctF42DEw9LhIiNaiQ==}
+  '@adonisjs/core@7.5.0':
+    resolution: {integrity: sha512-izUzy0elDIInlgFVTJpOJcrq3kXAI8HAZgFpMt0mnT7ojPMAt6ZVbxuKUyhXSJw8Tr+Z3bwryRV33zk34qgQtw==}
     engines: {node: '>=24.0.0'}
     hasBin: true
     peerDependencies:
       '@adonisjs/assembler': ^8.0.0-next.23 || ^8.0.0
       '@vinejs/vine': ^4.0.0
-      argon2: ^0.44.0
+      argon2: ^0.44.0 || ^0.45.1
       bcrypt: ^6.0.0
       edge.js: ^6.2.0
       pino-pretty: ^13.1.3
@@ -187,15 +187,15 @@ packages:
       '@adonisjs/application': ^9.0.0-next.14 || ^9.0.0
       '@adonisjs/fold': ^11.0.0-next.4 || ^11.0.0
 
-  '@adonisjs/fold@11.0.0':
-    resolution: {integrity: sha512-RnmDPWz2imVp/B74xitxCPqTdoP07bZvfJe1bh9CD9Rmia4jjDvehZF67KFyGNMZ24MuKasqs3jOcM1vGJp0GA==}
+  '@adonisjs/fold@11.1.0':
+    resolution: {integrity: sha512-M3/AUZ6w8s/3uLJ4RBPwkzpOaXAdYh1EezRA11j+S9/WfUyxx4aiIm9FpjitSJC1Hrc5ap6AqlYu2m6dfzHVRA==}
     engines: {node: '>=24.0.0'}
 
-  '@adonisjs/hash@10.1.0':
-    resolution: {integrity: sha512-lW0lGwpscu9PUo3Sb3PF580jYU29I9wsPn3dIKzZbTVedqkpaNpBK3YKedwZYkDpYmiyYXi08eTTNhdWjiGLQw==}
+  '@adonisjs/hash@10.1.1':
+    resolution: {integrity: sha512-i12srCoJ2uomD8fTMPEp16lcRTsB9pI8AlGFrtkrq7xcoLPBVi67lovXkdS6BNHdvdciH9HLcRe73KB2kUvgfw==}
     engines: {node: '>=20.6.0'}
     peerDependencies:
-      argon2: ^0.31.2 || ^0.41.0 || ^0.43.0 || ^0.44.0
+      argon2: ^0.31.2 || ^0.41.0 || ^0.43.0 || ^0.44.0 || ^0.45.1
       bcrypt: ^5.1.1 || ^6.0.0
     peerDependenciesMeta:
       argon2:
@@ -207,8 +207,8 @@ packages:
     resolution: {integrity: sha512-m3doBnSwi/l9v1DO79xmjAoSPl9b2XCp+crGwF8QUlhe5CgWgtfnL0SeFNEiZGliD3c4gYdihKz4Pnydctva8A==}
     engines: {node: '>=24.0.0'}
 
-  '@adonisjs/http-server@9.2.0':
-    resolution: {integrity: sha512-yTrnmo1Sn3k6d1/O9J+8mpaMMAflFwYM1P+Y8drAr9thVT55G9ywxRUSXeEp2RnOyxNcGVdjfdRACt6M/aP5Dw==}
+  '@adonisjs/http-server@9.3.0':
+    resolution: {integrity: sha512-ZnZXA4V5rcw890yjdjD0im2NFAtCmUr0v4Ghy9FLtE8d4r4Y11bFHlIoEhPdLSJ7m1Dl5pmL/M9fpsiLi6VUKw==}
     engines: {node: '>=24.0.0'}
     peerDependencies:
       '@adonisjs/application': ^9.0.0-next.14 || ^9.0.0
@@ -637,6 +637,9 @@ packages:
 
   '@poppinss/hooks@7.3.0':
     resolution: {integrity: sha512-/H35z/bWqHg7085QOxWUDYMidx6Kl6b8kIyzIXlRYzWvsk1xm9hQOlXWdWEYch+Gmn8eL7tThx59MBj8BLxDrQ==}
+
+  '@poppinss/hooks@7.3.1':
+    resolution: {integrity: sha512-MyBiHAOmUPT8fY++IQIeiYnxknrLQ9WzrAlZlyyGbFh+C5Srdb+FhQbQkLivAQxIKkhiCeeoSpiGPcv5gDvirA==}
 
   '@poppinss/macroable@1.1.2':
     resolution: {integrity: sha512-FAVBRzzWhYP5mA3lCwLH1A0fKBqq5anyjGet90Z81aRK5c/+LTGUE1zJhZrErjaenBSOOI9BVUs3WVmotneFQA==}
@@ -1067,6 +1070,10 @@ packages:
     resolution: {integrity: sha512-Bq3SmSpyFHaWjPk8If9yc6svM8c56dB5BAtW4Qbw5jHTwwXXcTLoRMkpDJp6VL0XzlWaCHTXrkFURMYmD0sLqg==}
     engines: {node: '>=12'}
 
+  ansi-regex@6.3.0:
+    resolution: {integrity: sha512-WpDfL7NO6j7tH88IDBNVdUJxDh9nmCteAVW9dsep846XdwF4naCBK+/tGLX3KJgcpgMRXCFlTM2hKGoK9FsdrQ==}
+    engines: {node: '>=12'}
+
   ansi-styles@4.3.0:
     resolution: {integrity: sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==}
     engines: {node: '>=8'}
@@ -1275,8 +1282,8 @@ packages:
     resolution: {integrity: sha512-5jRCH9Z/+DRP7rkvY83B+yGIGX96OYdJmzngqnw2SBSxqCFPd0w2km3s5iawpGX8krnwSGmF0FW5Nhr0Hfai3g==}
     engines: {node: '>=18'}
 
-  content-type@2.0.0:
-    resolution: {integrity: sha512-j/O/d7GcZCyNl7/hwZAb606rzqkyvaDctLmckbxLzHvFBzTJHuGEdodATcP3yIRoDrLHkIATJuvzbFlp/ki2cQ==}
+  content-type@2.1.0:
+    resolution: {integrity: sha512-mj7UPXE0jaqaOsukNZRUEfEi2AcL7C/vwmwcHV0O97eO1E1pxBZuyjlZrx5seTaNBg1U6+o35wpa35Qfcc+7ag==}
     engines: {node: '>=18'}
 
   convert-source-map@2.0.0:
@@ -1582,8 +1589,8 @@ packages:
     resolution: {integrity: sha512-XXTUwCvisa5oacNGRP9SfNtYBNAMi+RPwBFmblZEF7N7swHYQS6/Zfk7SRwx4D5j3CH211YNRco1DEMNVfZCnQ==}
     engines: {node: '>=16.0.0'}
 
-  file-type@22.0.1:
-    resolution: {integrity: sha512-ww5Mhre0EE+jmBvOXTmXAbEMuZE7uX4a3+oRCQFNj8w++g3ev913N6tXQz0XTXbueQ5TWQfm6BdaViEHHn8bhA==}
+  file-type@22.0.2:
+    resolution: {integrity: sha512-0H8TsCUGBLx+V5adH3EY52hTAcyLKbV1D4gq5cIOJ6DnQAHeV9Z2Hhuc5CoBX4YmvB2oL+JIC84z0qO7JsCoNw==}
     engines: {node: '>=22'}
 
   fill-range@7.1.1:
@@ -2829,10 +2836,10 @@ packages:
 
 snapshots:
 
-  '@adonisjs/ace@14.1.0(youch@4.1.1)':
+  '@adonisjs/ace@14.1.1(youch@4.1.1)':
     dependencies:
       '@poppinss/cliui': 6.8.1
-      '@poppinss/hooks': 7.3.0
+      '@poppinss/hooks': 7.3.1
       '@poppinss/macroable': 1.1.2
       '@poppinss/prompts': 3.1.6
       '@poppinss/utils': 7.0.1
@@ -2842,11 +2849,11 @@ snapshots:
       yargs-parser: 22.0.0
       youch: 4.1.1
 
-  '@adonisjs/application@9.0.1(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.0.0)':
+  '@adonisjs/application@9.1.0(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.1.0)':
     dependencies:
       '@adonisjs/config': 6.1.0
-      '@adonisjs/fold': 11.0.0
-      '@poppinss/hooks': 7.3.0
+      '@adonisjs/fold': 11.1.0
+      '@poppinss/hooks': 7.3.1
       '@poppinss/macroable': 1.1.2
       '@poppinss/utils': 7.0.1
       glob-parent: 6.0.2
@@ -2881,15 +2888,15 @@ snapshots:
     transitivePeerDependencies:
       - babel-plugin-macros
 
-  '@adonisjs/bodyparser@11.0.4(@adonisjs/http-server@9.2.0(@adonisjs/application@9.0.1(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.0.0))(@adonisjs/events@10.2.0(@adonisjs/application@9.0.1(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.0.0))(@adonisjs/fold@11.0.0))(@adonisjs/fold@11.0.0)(@adonisjs/logger@7.1.1(pino-pretty@13.1.3))(@boringnode/encryption@1.0.1)(youch@4.1.1))(supports-color@10.2.2)':
+  '@adonisjs/bodyparser@11.0.4(@adonisjs/http-server@9.3.0(@adonisjs/application@9.1.0(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.1.0))(@adonisjs/events@10.2.0(@adonisjs/application@9.1.0(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.1.0))(@adonisjs/fold@11.1.0))(@adonisjs/fold@11.1.0)(@adonisjs/logger@7.1.1(pino-pretty@13.1.3))(@boringnode/encryption@1.0.1)(youch@4.1.1))(supports-color@10.2.2)':
     dependencies:
-      '@adonisjs/http-server': 9.2.0(@adonisjs/application@9.0.1(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.0.0))(@adonisjs/events@10.2.0(@adonisjs/application@9.0.1(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.0.0))(@adonisjs/fold@11.0.0))(@adonisjs/fold@11.0.0)(@adonisjs/logger@7.1.1(pino-pretty@13.1.3))(@boringnode/encryption@1.0.1)(youch@4.1.1)
+      '@adonisjs/http-server': 9.3.0(@adonisjs/application@9.1.0(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.1.0))(@adonisjs/events@10.2.0(@adonisjs/application@9.1.0(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.1.0))(@adonisjs/fold@11.1.0))(@adonisjs/fold@11.1.0)(@adonisjs/logger@7.1.1(pino-pretty@13.1.3))(@boringnode/encryption@1.0.1)(youch@4.1.1)
       '@poppinss/macroable': 1.1.2
       '@poppinss/middleware': 3.2.7
       '@poppinss/multiparty': 3.0.0
       '@poppinss/qs': 6.15.0
       '@poppinss/utils': 7.0.1
-      file-type: 22.0.1(supports-color@10.2.2)
+      file-type: 22.0.2(supports-color@10.2.2)
       inflation: 2.1.0
       media-typer: 1.1.1
       raw-body: 3.0.2
@@ -2900,19 +2907,19 @@ snapshots:
     dependencies:
       '@poppinss/utils': 7.0.1
 
-  '@adonisjs/core@7.3.5(@adonisjs/assembler@8.4.0(typescript@5.9.3))(pino-pretty@13.1.3)(supports-color@10.2.2)(youch@4.1.1)':
+  '@adonisjs/core@7.5.0(@adonisjs/assembler@8.4.0(typescript@5.9.3))(pino-pretty@13.1.3)(supports-color@10.2.2)(youch@4.1.1)':
     dependencies:
-      '@adonisjs/ace': 14.1.0(youch@4.1.1)
-      '@adonisjs/application': 9.0.1(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.0.0)
-      '@adonisjs/bodyparser': 11.0.4(@adonisjs/http-server@9.2.0(@adonisjs/application@9.0.1(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.0.0))(@adonisjs/events@10.2.0(@adonisjs/application@9.0.1(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.0.0))(@adonisjs/fold@11.0.0))(@adonisjs/fold@11.0.0)(@adonisjs/logger@7.1.1(pino-pretty@13.1.3))(@boringnode/encryption@1.0.1)(youch@4.1.1))(supports-color@10.2.2)
+      '@adonisjs/ace': 14.1.1(youch@4.1.1)
+      '@adonisjs/application': 9.1.0(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.1.0)
+      '@adonisjs/bodyparser': 11.0.4(@adonisjs/http-server@9.3.0(@adonisjs/application@9.1.0(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.1.0))(@adonisjs/events@10.2.0(@adonisjs/application@9.1.0(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.1.0))(@adonisjs/fold@11.1.0))(@adonisjs/fold@11.1.0)(@adonisjs/logger@7.1.1(pino-pretty@13.1.3))(@boringnode/encryption@1.0.1)(youch@4.1.1))(supports-color@10.2.2)
       '@adonisjs/config': 6.1.0
       '@adonisjs/env': 7.0.0
-      '@adonisjs/events': 10.2.0(@adonisjs/application@9.0.1(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.0.0))(@adonisjs/fold@11.0.0)
-      '@adonisjs/fold': 11.0.0
-      '@adonisjs/hash': 10.1.0
+      '@adonisjs/events': 10.2.0(@adonisjs/application@9.1.0(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.1.0))(@adonisjs/fold@11.1.0)
+      '@adonisjs/fold': 11.1.0
+      '@adonisjs/hash': 10.1.1
       '@adonisjs/health': 3.1.0
-      '@adonisjs/http-server': 9.2.0(@adonisjs/application@9.0.1(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.0.0))(@adonisjs/events@10.2.0(@adonisjs/application@9.0.1(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.0.0))(@adonisjs/fold@11.0.0))(@adonisjs/fold@11.0.0)(@adonisjs/logger@7.1.1(pino-pretty@13.1.3))(@boringnode/encryption@1.0.1)(youch@4.1.1)
-      '@adonisjs/http-transformers': 2.3.1(@adonisjs/fold@11.0.0)
+      '@adonisjs/http-server': 9.3.0(@adonisjs/application@9.1.0(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.1.0))(@adonisjs/events@10.2.0(@adonisjs/application@9.1.0(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.1.0))(@adonisjs/fold@11.1.0))(@adonisjs/fold@11.1.0)(@adonisjs/logger@7.1.1(pino-pretty@13.1.3))(@boringnode/encryption@1.0.1)(youch@4.1.1)
+      '@adonisjs/http-transformers': 2.3.1(@adonisjs/fold@11.1.0)
       '@adonisjs/logger': 7.1.1(pino-pretty@13.1.3)
       '@adonisjs/repl': 5.0.0
       '@boringnode/encryption': 1.0.1
@@ -2964,20 +2971,20 @@ snapshots:
       - supports-color
       - typescript
 
-  '@adonisjs/events@10.2.0(@adonisjs/application@9.0.1(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.0.0))(@adonisjs/fold@11.0.0)':
+  '@adonisjs/events@10.2.0(@adonisjs/application@9.1.0(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.1.0))(@adonisjs/fold@11.1.0)':
     dependencies:
-      '@adonisjs/application': 9.0.1(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.0.0)
-      '@adonisjs/fold': 11.0.0
+      '@adonisjs/application': 9.1.0(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.1.0)
+      '@adonisjs/fold': 11.1.0
       '@poppinss/utils': 7.0.1
       '@sindresorhus/is': 7.2.0
       emittery: 1.2.1
 
-  '@adonisjs/fold@11.0.0':
+  '@adonisjs/fold@11.1.0':
     dependencies:
       '@poppinss/utils': 7.0.1
       parse-imports: 3.0.0
 
-  '@adonisjs/hash@10.1.0':
+  '@adonisjs/hash@10.1.1':
     dependencies:
       '@phc/format': 1.0.0
       '@poppinss/utils': 7.0.1
@@ -2987,11 +2994,11 @@ snapshots:
       '@poppinss/utils': 7.0.1
       check-disk-space: 3.4.0
 
-  '@adonisjs/http-server@9.2.0(@adonisjs/application@9.0.1(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.0.0))(@adonisjs/events@10.2.0(@adonisjs/application@9.0.1(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.0.0))(@adonisjs/fold@11.0.0))(@adonisjs/fold@11.0.0)(@adonisjs/logger@7.1.1(pino-pretty@13.1.3))(@boringnode/encryption@1.0.1)(youch@4.1.1)':
+  '@adonisjs/http-server@9.3.0(@adonisjs/application@9.1.0(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.1.0))(@adonisjs/events@10.2.0(@adonisjs/application@9.1.0(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.1.0))(@adonisjs/fold@11.1.0))(@adonisjs/fold@11.1.0)(@adonisjs/logger@7.1.1(pino-pretty@13.1.3))(@boringnode/encryption@1.0.1)(youch@4.1.1)':
     dependencies:
-      '@adonisjs/application': 9.0.1(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.0.0)
-      '@adonisjs/events': 10.2.0(@adonisjs/application@9.0.1(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.0.0))(@adonisjs/fold@11.0.0)
-      '@adonisjs/fold': 11.0.0
+      '@adonisjs/application': 9.1.0(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.1.0)
+      '@adonisjs/events': 10.2.0(@adonisjs/application@9.1.0(@adonisjs/assembler@8.4.0(typescript@5.9.3))(@adonisjs/config@6.1.0)(@adonisjs/fold@11.1.0))(@adonisjs/fold@11.1.0)
+      '@adonisjs/fold': 11.1.0
       '@adonisjs/logger': 7.1.1(pino-pretty@13.1.3)
       '@boringnode/encryption': 1.0.1
       '@poppinss/macroable': 1.1.2
@@ -3016,9 +3023,9 @@ snapshots:
     optionalDependencies:
       youch: 4.1.1
 
-  '@adonisjs/http-transformers@2.3.1(@adonisjs/fold@11.0.0)':
+  '@adonisjs/http-transformers@2.3.1(@adonisjs/fold@11.1.0)':
     dependencies:
-      '@adonisjs/fold': 11.0.0
+      '@adonisjs/fold': 11.1.0
       '@poppinss/exception': 1.2.3
       '@poppinss/types': 1.2.1
 
@@ -3545,6 +3552,8 @@ snapshots:
 
   '@poppinss/hooks@7.3.0': {}
 
+  '@poppinss/hooks@7.3.1': {}
+
   '@poppinss/macroable@1.1.2': {}
 
   '@poppinss/matchit@3.2.0':
@@ -3923,6 +3932,8 @@ snapshots:
 
   ansi-regex@6.2.2: {}
 
+  ansi-regex@6.3.0: {}
+
   ansi-styles@4.3.0:
     dependencies:
       color-convert: 2.0.1
@@ -4103,7 +4114,7 @@ snapshots:
 
   content-disposition@1.1.0: {}
 
-  content-type@2.0.0: {}
+  content-type@2.1.0: {}
 
   convert-source-map@2.0.0: {}
 
@@ -4385,7 +4396,7 @@ snapshots:
     dependencies:
       flat-cache: 4.0.1
 
-  file-type@22.0.1(supports-color@10.2.2):
+  file-type@22.0.2(supports-color@10.2.2):
     dependencies:
       '@tokenizer/inflate': 0.4.1(supports-color@10.2.2)
       strtok3: 10.3.5
@@ -5231,7 +5242,7 @@ snapshots:
 
   strip-ansi@7.2.0:
     dependencies:
-      ansi-regex: 6.2.2
+      ansi-regex: 6.3.0
 
   strip-bom@3.0.0: {}
 
@@ -5374,7 +5385,7 @@ snapshots:
 
   type-is@2.1.0:
     dependencies:
-      content-type: 2.0.0
+      content-type: 2.1.0
       media-typer: 1.1.1
       mime-types: 3.0.2
 
